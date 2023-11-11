@@ -1,0 +1,75 @@
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@section Styles{
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        header, footer {
+            display: none;
+        }
+        main.main {
+            min-height: calc(100vh);
+        }
+    </style>
+    <link rel="stylesheet" href="~/css/trynow.css">
+    <link href="~/css/loader.css" rel="stylesheet" />
+}
+    <section class="verify-section  p-0" id="vloader">
+        <img src="@Configuration["WebApplicationImage"]" alt="VeriDoc Certificates" title="VeriDoc Certificates" class="img-fluid bg-img" />
+    <div class="verify">
+        <h1>Verifying Account Email...</h1>
+        <div class="spanner" style="display:none; ">
+            <div class="overlay">
+            </div>
+            <img src="~/images/loader.svg" alt="" class="img-fluid" />
+            <div class="loader-footer">
+                <div class="white-bg countPercentage">
+                    <span data-count="">0</span>
+                    %
+                </div>
+                <h4><span class="custom-text"></span> <span id="dots">..</span></h4>
+                <img src="~/images/logo.svg" alt=" " class=" img-fluid" />
+            </div>
+        </div>
+    </section>
+    @section FooterScripts{
+    <script src="~/js/loaders.js"></script>
+    <script>
+        $(document).ready(function () {
+            showLoader('Loading', 1000, 100)
+            const url = new URL(window.location.href);
+            const email = url.searchParams.get("email");
+            const hash = url.searchParams.get("hash");
+            const fd = new FormData();
+            fd.append("email", email);
+            fd.append("hash", hash);
+            $.ajax({
+                async: true,
+                method: "POST",
+                url: apiURL + "/Subscribe/verify",
+                data: fd,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function (data, status, xhr) {
+                    if (xhr.status == 201) {                       
+                        window.location.href = "https://my.veridoccertificate.com?email="+email+"&authKey="+xhr.responseJSON.content;
+                    }
+                },
+                error: function (xhr, status, error) {
+                    if (xhr.status == 400 && xhr.responseJSON.hasOwnProperty("errors")) {
+                        let msg = "";
+                        for (const index in xhr.responseJSON.errors) {
+                            msg += xhr.responseJSON.errors[index].join() + ", ";
+                        }
+                        showError(msg.replace(/.$/, ''));
+                    } else if (xhr.status == 400 || xhr.responseJSON.statusCode == 400) {
+                        showError(xhr.responseJSON.content);
+                    } else {
+                        popupservererror();
+                    }
+                    console.log(xhr);
+                }
+            });
+        });
+    </script>
+}

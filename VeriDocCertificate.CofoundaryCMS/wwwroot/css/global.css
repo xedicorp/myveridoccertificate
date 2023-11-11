@@ -1,0 +1,324 @@
+/*----Commom Css Start----*/
+html {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    color: #000000;
+    overflow-y: scroll;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+section {
+    padding: 100px 0;
+}
+
+.card {
+    border-radius: 0;
+    border: 0;
+}
+
+input:focus,
+select:focus,
+button:focus,
+textarea:focus {
+    outline: 0;
+    box-shadow: none !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+figure {
+    margin: 0;
+}
+
+p {
+    color: #151515;
+}
+
+a {
+    text-decoration: none;
+}
+
+    a:hover {
+        text-decoration: none;
+    }
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+#back-to-top1 {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    padding: 6px 10px;
+    display: none;
+    z-index: 99999999;
+    border-color: #24984e;
+    border-radius: 6px;
+    background-color: #24984e;
+    color: #fff;
+    cursor:pointer;
+}
+header.fixed-header {
+    position: sticky;
+    width: 100%;
+    top: 0;
+    -webkit-box-shadow: 0 2px 4px -4px black;
+    -moz-box-shadow: 0 2px 4px -4px black;
+    box-shadow: 0 2px 4px -4px black;
+    background: #fff;
+    z-index: 1111;
+}
+
+.form-control {
+    border: 1px solid #CCCCCC;
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+    height: 50px;
+    font-size: 18px;
+}
+
+    .form-control::placeholder {
+        color: #ccc;
+        font-weight: 400;
+        font-size: 16px;
+    }
+/*----Commom Css End----*/
+
+/*----Button Css Start----*/
+.btn_1 {
+    background-color: #000;
+    border: 1px solid #000;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 10px 20px;
+    min-width: 150px;
+    min-height: 45px;
+    max-width: 100%;
+}
+
+.btn_2 {
+    background-color: #24984e;
+    border: 1px solid #24984e;
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 0 !important;
+    min-width: 150px;
+    min-height: 45px;
+    max-width: 100%;
+}
+    .btn_2:hover{
+        color:white;
+    }
+button span svg {
+    width: 35px;
+    height: 35px;
+    right: 10px;
+    left: initial;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+@media (max-width:425px) {
+    button span svg {
+        width: 25px;
+        height: 25px;
+        right: 3px;
+    }
+    .btn_2 {
+        min-width: 120px;
+        min-height: 45px;
+        max-width: 100%;
+    }
+}
+
+
+.form-control:focus {
+    border-color: #CCCCCC;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+    /*----Button Css End----*/
+    /*----Heading or Title Css Start----*/
+    .h1_heading {
+        color: #151515;
+        font-size: 65px;
+        font-weight: 400;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        line-height: 1.3;
+        margin-bottom: 30px;
+    }
+
+.hero-para {
+    font-size: 20px;
+    font-weight: 500;
+    margin: 25px 0 30px 0;
+}
+
+.title {
+    font-size: 48px;
+    font-weight: 700;
+    color: #151515;
+    margin-bottom: 20px;
+}
+
+.sub-title {
+    font-size: 36px;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 20px;
+}
+
+.section-para {
+    font-size: 26px;
+    line-height: 1.7;
+}
+
+.other-page-banner {
+    background-color: #f4f7eb;
+    padding: 100px 0;
+    text-align: center;
+}
+
+.main-heading-style-one .section-para span a {
+    color: #29abe2;
+    font-size: 24px;
+    text-decoration: underline;
+    font-weight: 400;
+}
+
+.the_green {
+    color: #24984E !important;
+    font-weight: 700;
+}
+.go-back a .fa-angle-left {
+    margin-right: 8px;
+}
+main.main {
+    min-height: calc(100vh - 582.8px);
+}
+/*----Heading or Title Css End----*/
+
+/*----Media Query Start----*/
+@media (max-width: 1799px) {
+    /*----Heading or Title Css Start----*/
+    .h1_heading {
+        margin-bottom: 8px;
+        font-size: 40px;
+    }
+}
+
+@media (max-width: 991px) {
+    #back-to-top1 {
+        bottom: 55px;
+        right: 16px;
+    }
+    .main-heading-style-one .section-para span a {
+        font-size: 16px;
+    }
+    section {
+        padding: 50px 0;
+    }
+    .mobile-cta {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        display: flex;
+        background: black;
+        text-align: center;
+        justify-content: center;
+        border-top: 1px solid;
+        z-index: 111;
+    }
+
+    .title {
+        font-size: 30px;
+    }
+
+    .sub-title {
+        font-size: 25px;
+    }
+
+    .section-para {
+        font-size: 16px;
+    }
+}
+
+
+
+    @media (max-width: 767px) {
+        /*----Heading or Title Css Start----*/
+        .h1_heading {
+        font-size: 27px;
+    }
+
+    .hero-para {
+        font-size: 17px;
+    }
+
+   /* .title {
+        font-size: 20px;
+    }*/
+}
+
+@media (max-width: 425px) {
+    /*----Heading or Title Css Start----*/
+    .h1_heading {
+        font-size: 24px;
+    }
+}
+/*----Media Query End----*/
+@media (min-width: 1800px) {
+    .container {
+        max-width: 1600px;
+    }
+}
+
+
+.swal2-container.swal2-center.swal2-backdrop-show {
+    z-index: 1111111;
+}
+
+button.swal2-confirm.btn_2.swal2-styled {
+    background-color: #24984e;
+    border-radius: 10px;
+}
+
+.the_date {
+    border: none !important;
+}
+button.swal2-confirm.swal2-styled {
+    background-color: #24984e;
+    min-width: 150px;
+}

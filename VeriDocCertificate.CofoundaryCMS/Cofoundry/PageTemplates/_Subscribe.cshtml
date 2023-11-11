@@ -1,0 +1,584 @@
+﻿@model IPageViewModel
+@using Microsoft.AspNetCore.Http
+@inject ICofoundryTemplateHelper<IPageViewModel> Cofoundry
+@inject IHttpContextAccessor HttpContextAccessor
+
+@Cofoundry.Template.UseDescription("Template for the contact page")
+@section Styles{
+    <link rel="stylesheet" href="~/css/subscribe.css" asp-append-version="true">
+}
+<section class="subscribe">
+    <div class="subscribe-main">
+        <form action="/" name="subscription-form" method="post" enctype="multipart/form-data">
+            <div class="container  form-validate">
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <h1 class="title text-white text-center">Sign Up Now</h1>
+                    </div>
+                    <div class="col-12 mx-auto">
+                        <div c class="card subscribe-card">
+                            <div class="row sub-row">
+                                <div class="col-lg-7 subscribe_2 information-card">
+                                    <div class="user-info">
+                                        <div class="box_heading">
+                                            <h4 class="text-turquoise">Your Information</h4>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <label>Name <span style="color: red">*</span></label>
+                                            </div>
+                                            <div class="col-md-6 mb-3 mb-md-0">
+                                                <div class="form-group form_field">
+                                                    <input type="text" id="" name="SubFistName" class="form-control"
+                                                           placeholder="First Name">
+                                                    <span id="firstNameErrorMsg" class="errormsg" style="color: red"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group form_field">
+                                                    <input type="text" id="" name="SubLastName" class="form-control"
+                                                           placeholder="Last Name">
+                                                    <span id="" class="errormsg" style="color: red"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group form_field">
+                                                    <label>Email <span style="color: red">*</span></label>
+                                                    <input type="email" id="" name="SubEmail" class="form-control"
+                                                           placeholder="Enter your email">
+                                                    <span id="emailErrorMsg" class="errormsg" style="color: red"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label>Phone Number </label>
+                                            </div>
+                                            <div class="col-md-6 mb-3 mb-md-0">
+                                                <div class="position-relative form-group form_field">
+                                                    <select name="SubPhoneCodeNo" id="" class="CountyCode1 dial form-control w-100">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group form_field ">
+                                                    @* <label style="opacity: 0">lorem <span></span></label> *@
+                                                    <input type="number" onkeypress="return onlyNumberKey(event)" class="form-control" id="" placeholder="Phone Number"
+                                                           name="SubPhoneNo">
+                                                    <span id="sp_Phone" class="errormsg" style="color: red"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="second-step d-flex justify-content-between d-lg-none">
+                                                    <button type="button" id="BacktoPlan" class="btn_2">Back</button>
+                                                    <button type="button" id="gotoSecond" class="btn_2">Continue</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="company-info">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="box_heading">
+                                                    <h4 class="text-turquoise d-flex justify-content-between">
+                                                        <a href="javascript:void(0)" data-collapse="company_detals"
+                                                           class="text-turquoise">
+                                                            Organisation Details
+                                                            (optional)<i class="fa fa-chevron-down"></i>
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div class="company-details-container" id="company_detals">
+                                                    <div class="company-details-cont">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group form_field">
+                                                                    <label>Company Name</label>
+                                                                    <input type="text" name="SubCompanyName" class="form-control"
+                                                                           placeholder="Enter your company name">
+                                                                    <span id="sp_Phone" class="errormsg" style="color: red"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12 mb-3">
+                                                                <div class="form-group form_field">
+                                                                    <label>Address</label>
+                                                                    <input type="text" name="SubCompanyAddress" class="form-control"
+                                                                           placeholder="Address Line 1">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 mb-3">
+                                                                <div class="form-group form_field ">
+                                                                    <input type="text" name="SubCompanyCity" class="form-control"
+                                                                           placeholder="City">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 mb-3">
+                                                                <div class="form-group form_field ">
+                                                                    <input type="text" name="SubCompanyState" class="form-control"
+                                                                           placeholder="State">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 mb-3 mb-md-0">
+                                                                <div class="position-relative">
+                                                                    <select name="SubCompanyCountry" id="" class="CountyCode1  country form-control">
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group form_field">
+                                                                    <input type="text" placeholder="Postcode" name="SubCompanyPostcode"
+                                                                           class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <div class="second-step d-flex justify-content-between d-lg-none mb-lg-30 mb-sm-30">
+                                                                    <a href="javascript:void(0)" id="BacktoUser" class="btn_2 d-flex justify-content-center">Back</a>
+                                                                    <a href="javascript:void(0)" id="gotoFinal" class="btn_2 d-flex justify-content-center">Continue</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="billing-address-container">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group form_field">
+                                                                    <label>
+                                                                        Are your billing details the same as your sign up
+                                                                        details?
+                                                                    </label>
+                                                                    <div class="billing-radio d-flex">
+                                                                        <input type="radio" class="me-2" id="address_checkyes" name="address_check"
+                                                                               value="Yes" checked>
+                                                                        <label class="my-0" for="yes">Yes</label>
+                                                                        <input type="radio" class="me-2" id="no" name="address_check"
+                                                                               value="No">
+                                                                        <label class="mb-0 me-2 mt-0" for="no">No</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <div class="billing_address">
+                                                                    <div class="row">
+                                                                        <div class="col-12">
+                                                                            <div class="form-group form_field">
+                                                                                <label>Company Name</label>
+                                                                                <input name="BillingCompanyName" type="text"
+                                                                                       id="Alter_Company_Name" class="form-control"
+                                                                                       placeholder="Enter your company name">
+                                                                                <span id="billing_companyName" class="errormsg"
+                                                                                      style="color: red"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-12 mb-3">
+                                                                            <div class="form-group form_field">
+                                                                                <label>Address</label>
+                                                                                <input name="BillingCompanyAddress" type="text"
+                                                                                       id="Alter_Company_Address" class="form-control"
+                                                                                       placeholder="Address Line 1">
+                                                                                <span id="billing_companyAddress" class="errormsg"
+                                                                                      style="color: red"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class=" col-md-6 mb-3">
+                                                                            <div class="form-group form_field">
+                                                                                <input name="BillingCompanyCity" type="text"
+                                                                                       id="Alter_Company_Address" class="form-control"
+                                                                                       placeholder="City">
+                                                                                <span id="billing_companyCity" class="errormsg"
+                                                                                      style="color: red"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6 mb-3">
+                                                                            <div class="form-group form_field">
+                                                                                <input name="BillingCompanyState" type="text"
+                                                                                       id="Alter_City" class="form-control"
+                                                                                       placeholder="State">
+                                                                                <span id="billing_companyState" class="errormsg"
+                                                                                      style="color: red"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6 mb-3 mb-md-0">
+                                                                            <div class="position-relative">
+                                                                                <select name="BillingCompanyCountry" id="BillingCompanyCountry"
+                                                                                        class="CountyCode1 country form-control"></select>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group form_field">
+                                                                                <input name="BillingZipCode" type="text" id="Alter_ZIP"
+                                                                                       class="form-control" placeholder="Postcode">
+                                                                                <span id="billing_companyZip" class="errormsg"
+                                                                                      style="color: red"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <div class="final-step d-flex justify-content-between mb-lg-30 mb-sm-30 ">
+                                                                    <a href="javascript:void(0)" id="BacktoCompany"
+                                                                       class="btn_2 d-flex justify-content-center d-lg-none">Back</a>
+                                                                    <button type="button" id="SignUpSubmitMobile"
+                                                                            class="btn_2 d-block d-lg-none submit-signup-validation position-relative">
+                                                                        Continue
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mt-3 d-none d-lg-block d-xl-block">
+                                        <div class="final-step d-flex justify-content-between mb-lg-30 mb-sm-30 ">
+                                            <a href="javascript:void(0)" id="BacktoCompany" class="btn_2 d-block d-lg-none">Back</a>
+                                            <button type="button" class="btn_2 get-summary submit-signup-validation position-relative">Continue</button>
+                                        </div>
+                                        <div class="term-con my-3">
+                                            <p>
+                                                By clicking “Continue" button you
+                                                acknowledge that you have read
+                                                VeriDoc Certificates <span><a href="~/user-license" target="_blank">End User License Agreement</a> </span> and agree to the <span>
+                                                    <a href="~/terms-and-condition" target="_blank">
+                                                        Terms and
+                                                        Conditions
+                                                    </a>
+                                                </span> of VeriDoc Certificates.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                @{
+                                    string plan = HttpContextAccessor.HttpContext.Request.Query["plan"].ToString().ToLower();
+                                    string timespan = HttpContextAccessor.HttpContext.Request.Query["timespan"].ToString().ToLower();
+                                    string plans = string.Empty;
+                                    decimal price = 0;
+                                    if (plan == "standard" && timespan == "monthly")
+                                    {
+                                        plans = "Standard";
+                                        price = 30;
+                                    }
+                                    else if(plan == "standard" && timespan == "yearly")
+                                    {
+                                        plans = "Standard";
+                                        price = 24;
+                                    }
+                                    else if(plan == "pro" && timespan == "monthly")
+                                    {
+                                        plans = "Pro";
+                                        price = 120;
+                                    }
+                                    else if (plan == "pro" && timespan == "yearly")
+                                    {
+                                        plans = "Pro";
+                                        price = 96;
+                                    }
+
+                                }
+                                <div class="col-lg-7 subscribe_2 summary-card" style="display: none">
+                                    <div class="with-template" style="display: none">
+                                        <div class="summary-template-sec">
+                                            <div class="template-box">
+                                                <img src="~/images/subscription-page-image.webp" class="img-fluid">
+                                            </div>
+                                            <div class="template-content">
+                                                <h5>Default Template </h5>
+                                                <h4>$ 90 USD</h4>
+                                                <p>
+                                                    VDG Team will get in touch with your within 24 hours for further
+                                                    details. You can still select the templates later and buy them
+                                                    according to your personal or organisation requirements.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <table class="table table-bordered summary-table">
+
+                                            <tbody>
+                                                <tr>
+                                                    <td class="w-lg-40">Package Selected</td>
+                                                    <td class="bold-td w-lg-30">Standard</td>
+                                                    <td class="bold-td w-lg-30">$ @(price) USD</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="w-lg-40">Template Name</td>
+                                                    <td class="bold-td w-lg-30">Default</td>
+                                                    <td class="bold-td w-lg-30">$ 90 USD</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="bold-td w-lg-40">Total</td>
+                                                    <td class="bold-td text-center w-lg-30"></td>
+                                                    <td class="bold-td text-blue w-lg-30">$ @(price + 90) USD</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="summary-btn">
+                                            <button class="blue_btn back-information">Go back</button>
+                                            <button class="btn_2 signactionmain-wtowot" id="signupwithtemplate">Continue</button>
+                                        </div>
+                                        <p>
+                                            By clicking “Continue” button you will be redirected to sucure payments page, if you want to select
+                                            another package or template click “Go Back” button.
+                                        </p>
+                                    </div>
+                                    <div class="without-template" style="display: none">
+                                        <div class="summary-template-sec">
+                                            @*<div class="template-box">
+                                                <img src="/images/section2.png" class="omg-fluid">
+                                            </div>*@
+                                            @*<div class="template-content">
+                                                <h5>Default Template</h5>
+                                                <h4>$ 90 USD</h4>
+                                                <p>
+                                                    VDG Team will get in touch with your within 24 hours for further
+                                                    details. You can still select the templates later and buy them
+                                                    according to your personal or organisation requirements.
+                                                </p>
+                                            </div>*@
+                                        </div>
+                                        <table class="table table-bordered summary-table">
+
+                                            <tbody>
+                                                <tr>
+                                                    <td class="w-lg-40">Package Selected</td>
+                                                    <td class="bold-td w-lg-30">Standard</td>
+                                                    <td class="bold-td w-lg-30">$ @(price) USD</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="bold-td w-lg-40">Total</td>
+                                                    <td class="bold-td text-center w-lg-30"></td>
+                                                    <td class="bold-td text-blue w-lg-30">$ @(price) USD</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="summary-btn">
+                                            <button class="blue_btn back-information">Go back</button>
+                                            <button class="btn_2 signactionmain-wtowot" id="SignUpSubmitMobile">Continue</button>
+                                        </div>
+                                        <p>
+                                            By clicking “Continue” button you will be redirected to sucure payments page, if you want to select
+                                            another package or template click “Go Back” button.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-5 plan-selected_1 my-plans my-plans-1">
+                                    <button class="btn_2" style="pointer-events:none">PLAN SELECTED</button>
+                                    <div class="packages trial">
+                                        <div class="plan-value-section">
+                                            <h3>Free Trial</h3>
+                                            <h4><span>$</span>0<sub>USD</sub></h4>
+                                            <h5>30 days free trial</h5>
+                                            <h6>$0 USD per employee</h6>
+                                            <p>2 certificates to use with in 30 days</p>
+                                        </div>
+                                        <div class="extra-template">
+                                            <h4>TEMPLATE</h4>
+                                            <p>Buy Now</p>
+                                            <input type="checkbox">
+                                            <p>
+                                                Do you want to purchase the custom template now?
+                                                VDG Team will get in touch with your within 24 hours for further
+                                                details. You can still select the templates later and buy them
+                                                according to your personal or organisation requirements.
+                                            </p>
+                                            <div class="template-box">
+                                                <img src="~/images/subscription-page-image.webp" class="img-fluid">
+                                                <div class="template-details">
+                                                    <p>Default Template</p>
+                                                    <span>
+                                                        $ 90 USD
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="packages standard_monthly">
+                                        <div class="plan-value-section">
+                                            <h3 class="sub-title">Standard</h3>
+                                            <div class="box_2_price">
+                                                <h4 class="price">$30<sub>USD</sub></h4>
+                                                <h5>Per month</h5>
+                                                <h6>$2 per certificate</h6>
+                                            </div>
+                                            <p>15 certificates added to your balance each month, unused certificates roll over to the following month</p>
+                                        </div>
+                                        <div class="extra-template">
+                                            <h4>TEMPLATE</h4>
+                                            <p>Buy Now</p>
+                                            <input type="checkbox" name="templateselection" id="p-s-m">
+                                            <p>
+                                                Do you want to purchase the custom template now?
+                                                VDG Team will get in touch with your within 24 hours for further
+                                                details. You can still select the templates later and buy them
+                                                according to your personal or organisation requirements.
+                                            </p>
+                                            <div class="template-box">
+                                                <img src="~/images/subscription-page-image.webp" class="img-fluid">
+                                                <div class="template-details">
+                                                    <p>Default Template</p>
+                                                    <span>
+                                                        $ 90 USD
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="packages pro_monthly">
+                                        <div class="plan-value-section">
+                                            <h3 class="sub-title">Pro</h3>
+                                            <div class="box_2_price" style="">
+                                                <h4 class="price">$120<sub>USD</sub></h4>
+                                                <h5>Per month</h5>
+                                                <h6>$1.50 per certificate</h6>
+
+                                            </div>
+                                            <p>80 certificates added to your balance each month, unused certificates roll over to the following month</p>
+                                        </div>
+                                        <div class="extra-template">
+                                            <h4>TEMPLATE</h4>
+                                            <p>Buy Now</p>
+                                            <input type="checkbox" name="templateselection" id="p-p-m">
+                                            <p>
+                                                Do you want to purchase the custom template now?
+                                                VDG Team will get in touch with your within 24 hours for further
+                                                details. You can still select the templates later and buy them
+                                                according to your personal or organisation requirements.
+                                            </p>
+                                            <div class="template-box">
+                                                <img src="~/images/subscription-page-image.webp" class="img-fluid">
+                                                <div class="template-details">
+                                                    <p>Default Template</p>
+                                                    <span>
+                                                        $ 90 USD
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class=" packages standard_yearly">
+                                        <div class="plan-value-section">
+                                            <h3 class="sub-title">Standard</h3>
+
+                                            <div class="box_2_price">
+                                                <h4 class="price">$24<sub>USD</sub></h4>
+                                                <h5>Per Month</h5>
+                                                <h6>$1.60 per certificate</h6>
+                                            </div>
+
+                                            <p>15 certificates added to your balance each month, unused certificates roll over to the following month</p>
+                                        </div>
+                                        <div class="extra-template">
+                                            <h4>TEMPLATE</h4>
+                                            <p>Buy Now</p>
+                                            <input type="checkbox" name="templateselection" id="p-s-y">
+                                            <p>
+                                                Do you want to purchase the custom template now?
+                                                VDG Team will get in touch with your within 24 hours for further
+                                                details. You can still select the templates later and buy them
+                                                according to your personal or organisation requirements.
+                                            </p>
+                                            <div class="template-box">
+                                                <img src="~/images/subscription-page-image.webp" class="img-fluid">
+                                                <div class="template-details">
+                                                    <p>Default Template</p>
+                                                    <span>
+                                                        $ 90 USD
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="packages pro_yearly">
+                                        <div class="plan-value-section">
+                                            <h3 class="sub-title">Pro</h3>
+
+                                            <div class="box_2_price">
+                                                <h4 class="price">$96<sub>USD</sub></h4>
+                                                <h5>Per Month</h5>
+                                                <h6>$1.20 per certificate</h6>
+                                            </div>
+
+                                            <p>15 certificates added to your balance each month, unused certificates roll over to the following month</p>
+                                        </div>
+                                        <div class="extra-template">
+                                            <h4>TEMPLATE</h4>
+                                            <p>Buy Now</p>
+                                            <input type="checkbox" name="templateselection" id="p-p-y">
+                                            <p>
+                                                Do you want to purchase the custom template now?
+                                                VDG Team will get in touch with your within 24 hours for further
+                                                details. You can still select the templates later and buy them
+                                                according to your personal or organisation requirements.
+                                            </p>
+                                            <div class="template-box">
+                                                <img src="~/images/subscription-page-image.webp" class="img-fluid">
+                                                <div class="template-details">
+                                                    <p>Default Template</p>
+                                                    <span>
+                                                        $ 90 USD
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="final-step d-lg-flex justify-content-end mb-lg-30 mb-sm-30 d-block d-lg-none">
+                                        <a href="javascript:void(0)" id="gotoInitial" class="btn_2 ">Continue</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+@section FooterScripts{
+    <script>
+        function onlyNumberKey(evt) {
+            var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+            if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+                return false;
+            return true;
+        }
+        $(document).ready(function () {
+            $('.get-summary').click(function () {
+                //$('.information-card').slideUp();
+                //$('.extra-template').hide();
+                //$('.sub-heading').text('SUMMARY');
+                
+                //if ($(".extra-template input").is(":checked")) {
+                //    $('.summary-card .with-template').slideDown();
+                //} else {
+                //    $('.summary-card .without-template').slideDown();
+                //}
+                //$('.summary-card').show();
+            })
+            $('.back-information').click(function (e) {
+                e.preventDefault();
+                $('.information-card').slideDown();
+                $('.summary-card').slideUp();
+                $('.extra-template').show();
+                $('.sub-heading').text('Sign Up Now');
+            });
+
+            $('input[name="templateselection"]').click(function (e) {
+                if (this.checked) {
+                    $('div.without-template').hide();
+                    $('div.with-template').show();
+                } else {
+                    $('div.without-template').show();
+                    $('div.with-template').hide();
+                }
+            });
+        })
+
+      
+    </script>
+
+}

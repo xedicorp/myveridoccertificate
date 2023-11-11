@@ -1,0 +1,75 @@
+﻿@model PagedQueryResult<FaqPostSummary>
+@inject ICofoundryHelper Cofoundry
+
+@{
+    Layout = null;
+    int i = 0;
+}
+
+@foreach (var faqpost in Model.Items)
+{
+
+    var postDateText = faqpost.PostDate.HasValue ? faqpost.PostDate.Value.ToString("dd MMM yyyy") : "Not published";
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#que_@i" aria-expanded="false" aria-controls="que_@i">
+                @faqpost.Title
+            </button>
+        </h2>
+        <div id="que_@i" class="accordion-collapse collapse" aria-labelledby="que_@i"
+         data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                @if (faqpost.MeidaLookup.ToString() == "None")
+                {
+                    <p>
+                        @faqpost.ShortDescription
+                    </p>
+                    <a href="@faqpost.FullPath" class="the_green">READ MORE <span><i class="fa fa-angle-right"></i></span></a>
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col-md-6">
+                            @if (faqpost.MeidaLookup.ToString() == "Image")
+                            {
+                                <a href="@faqpost.FullPath">
+                                    <img src="@Cofoundry.Routing.DocumentAsset(faqpost.ThumbnailImageAsset)" class="img-fluid" alt="VeriDoc Certificates" title="VeriDoc Certificates">
+                                </a>
+                            }
+                            else if (faqpost.MeidaLookup.ToString() == "Video")
+                            {
+                                @if (faqpost.VideoLookup.ToString() == "Youtube")
+                                {
+                                    <a href="@faqpost.FullPath">
+                                        <img src='@string.Format("https://img.youtube.com/vi/{0}/hqdefault.jpg", faqpost.ThumbnailIframeId)' class="img-fluid" alt="VeriDoc Certificates" title="VeriDoc Certificates">
+                                        <img src="~/images/youtube-icon-2.png" class="img-fluid" alt="VeriDoc Certificates" title="VeriDoc Certificates">
+                                    </a>
+                                }
+                                else if (faqpost.VideoLookup.ToString() == "Vimeo")
+                                {
+                                    <a href="@faqpost.FullPath">
+                                       <img src='@string.Format("http://vumbnail.com/{0}.jpg", faqpost.ThumbnailIframeId)' class="img-fluid" alt="VeriDoc Certificates" title="VeriDoc Certificates">
+                                        <img src="~/images/vimeo-icon-2.jpg" class="img-fluid" alt="VeriDoc Certificates" title="VeriDoc Certificates">
+                                    </a>
+                                }
+                                
+                                
+                            }
+                        </div>
+                        <div class="col-md-6 my-auto">
+                            <p class="shortDesc">
+                                @faqpost.ShortDescription
+                            </p>
+                            <a href="@faqpost.FullPath" class="the_green">READ MORE <span><i class="fa fa-angle-right"></i></span></a>
+                        </div>
+                    </div>
+                }
+                
+            </div>
+        </div>
+    </div>
+
+    
+    i++;
+}

@@ -1,0 +1,37 @@
+﻿@model IPageViewModel
+@inject ICofoundryTemplateHelper<IPageViewModel> Cofoundry
+
+@Cofoundry.Template.UseDescription("Template for the Faq post listing page")
+@section styles{
+    <link href="~/css/faq.css" rel="stylesheet" asp-append-version="true" />
+}
+<!-- faq section starts -->
+<section class="other-page-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="main-heading-style-one">
+                    <h2 class="title">Frequently Asked Questions</h2>
+                    <p class="section-para">See the list below for our most frequently asked questions.</p>
+                    <p class="section-para"> If your questions are not listed here, please <span><a href="~/contact">contact us.</a></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- faq section ends -->
+<!-- faq first section starts -->
+<section class="faq-first-section">
+    <div class="container">
+        <div class="row ">
+            <div class="col-lg-12 mx-auto">
+                <div class="faq-content">
+                    <div class="accordion" id="accordionExample">
+                        @await Component.InvokeAsync("FaqPostList")
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

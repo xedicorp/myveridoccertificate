@@ -1,0 +1,79 @@
+﻿@model PricingDisplayModel
+@inject ICofoundryBlockTypeHelper<PricingDisplayModel> Cofoundry
+@{
+    Cofoundry.BlockType.UseDescription("pricing");
+}
+<section class="my-plans" id="pricing">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="top">
+                    <h2 class="title">Choose the plan that’s right for you</h2>
+                    <h3 class="sub-title">VeriDoc Certificates pricing lets you try us out FREE for 30 days before you commit</h3>
+                    <p class="desc-txt"><span>Our monthly plans include unlimited users but a set number of Certificates.</span><span>Slow month? No worries – your unused Certificates roll over to the next.</span>  </p>
+                    <div class="toggle-btn">
+                        <span class="monthly" style="margin: 0.8em;">Monthly</span>
+                        <label class="switch" for="toggle-check">
+                            <input type="checkbox" id="toggle-check" name="toggle check">&gt;
+                            <span class="slider round"></span>
+                        </label>
+                        <span class="annual" style="margin: 0.8em;">Annually</span>
+                    </div>
+                </div>
+            </div>
+            
+           
+            @for (int i = 0; i < Model.Lists.Count; i++)
+            {
+                var item = Model.Lists.ElementAt(i);
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="packages">
+                        <div class="plan-value-section">
+                            <h3 class="sub-title">@item.Title</h3>
+                            @if(item.YearlyPlanDescription == null){
+                                @Cofoundry.Sanitizer.Sanitize(item.MonthlyPlanDescription)
+                            }
+                            else{
+                                <div class="box_1_price" >
+                                    @Cofoundry.Sanitizer.Sanitize(item.MonthlyPlanDescription)
+
+                                </div>
+                                <div class="box_2_price" style="display: none">
+                                    @Cofoundry.Sanitizer.Sanitize(item.YearlyPlanDescription)
+
+                                </div>
+                            }
+                            
+                           
+                        </div>
+                        @Cofoundry.Sanitizer.Sanitize(item.PlanFeatures)
+                        @if (item.FreeTrialLink.ToString() == "Yes")
+                        {
+                            <div class="box-monthly">
+                                <a class="btn_1 btn_try_now" href="#">Try Now</a>
+
+                            </div>
+                            <div class="box-yearly" style="display: none;">
+                                <a class="btn_1 btn_try_now" href="#">Try Now</a>
+
+                            </div>
+                        }
+                        else{
+                            <div class="box-monthly">
+                                <a  class="btn_1" target="_blank" href="~/subscribe?@item.PlanMonthlyLink" >Buy Now</a>
+
+                            </div>
+                            <div class="box-yearly" style="display: none;">
+                                <a  class="btn_1" target="_blank" href="~/subscribe?@item.PlanYearlyLink" >Buy Now</a>
+
+                            </div>
+                        }
+                        
+                    </div>
+                </div>
+                
+            }
+        </div>
+    </div>
+</section>
+

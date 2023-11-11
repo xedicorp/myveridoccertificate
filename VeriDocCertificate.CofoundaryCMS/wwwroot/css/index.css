@@ -1,0 +1,723 @@
+/*---Free Trail Section Start---*/
+.free_trail {
+    position: relative;
+}
+
+.hero img {
+    margin-top: -110px;
+    margin-left: auto;
+    display: block;
+}
+
+.hero p {
+    font-size: 20px;
+    font-weight: 500;
+    margin: 25px 0 30px 0;
+    display: block;
+}
+
+.free_trail .btn_2 {
+    font-weight: 400;
+    min-height: 50px;
+    line-height: 28px;
+}
+
+.hero small {
+    display: block;
+    margin-top: 20px;
+    color: #878787;
+    font-size: 16px;
+}
+
+
+#errorIcon {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    height: 20px;
+    width: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    transform: translateY(-50%);
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.input-cross i {
+    color: #e23c39;
+    font-size: 20px;
+}
+
+    .input-cross i.fa-circle-check {
+        color: #24984e;
+    }
+
+.spinner {
+    -webkit-animation: rotate 2s linear infinite;
+    animation: rotate 2s linear infinite;
+    z-index: 2;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -25px 0 0 -25px;
+    width: 50px;
+    height: 50px;
+}
+/*---Free Trail Section End---*/
+
+/*---Default Section Start---*/
+.traning {
+    background-color: #f7f7f7;
+}
+
+    .traning ul li {
+        position: relative;
+        padding-left: 35px;
+        margin-bottom: 30px;
+    }
+
+        .traning ul li:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .traning ul li::before {
+            position: absolute;
+            content: "\f105";
+            left: 0px;
+            font-family: FontAwesome;
+            color: #24984e;
+            font-weight: 900;
+            font-size: 55px;
+            top: -21px;
+        }
+
+        .traning ul li:nth-child(2)::before {
+            color: #d5d5d5;
+        }
+
+.lorem ul li {
+    position: relative;
+    padding-left: 55px;
+}
+
+    .lorem ul li:not(:last-of-type) {
+        margin-bottom: 20px;
+    }
+
+    .lorem ul li::before {
+        position: absolute;
+        content: "\f105";
+        left: 0px;
+        font-family: FontAwesome;
+        color: rgb(36, 152, 78);
+        font-size: 40px;
+        font-weight: 900;
+        top: -10px;
+    }
+
+.courses {
+    background-color: #f7f7f7;
+}
+
+    .courses ul li {
+        position: relative;
+        padding-left: 40px;
+        margin-bottom: 20px;
+    }
+
+        .courses ul li:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .courses ul li::before {
+            position: absolute;
+            content: "";
+            height: 10px;
+            width: 10px;
+            border-radius: 3px;
+            left: 10px;
+            background-color: #19984e;
+            top: 22px;
+        }
+
+        .courses ul li p strong {
+            font-size: 30px;
+        }
+
+.cta {
+    background-color: #19984e;
+}
+
+    .cta .btn_1 {
+        font-size: 23px;
+        min-width: 213px;
+        min-height: 60px;
+        line-height: 45px;
+        padding: 12px 48px;
+        color:#fff;
+    }
+
+    .cta .title {
+        margin-bottom: 0;
+        font-size: 30px;
+    }
+
+.digital_learning {
+    background-color: #f4f7eb;
+}
+
+    .digital_learning .img_top {
+        margin-bottom: 30px;
+    }
+
+.learning .img_top img {
+    width: 80px;
+    height: 80px;
+}
+
+.digital_learning figcaption .image_heading {
+    margin: 20px 0;
+    font-size: 30px;
+    font-weight: 700;
+    color: #000;
+    min-height: 70px;
+}
+
+.congrats .congrats_detail {
+    margin-left: 80px;
+    position: relative;
+    margin-bottom: 50px;
+}
+
+.congrats_detail::before {
+    position: absolute;
+    content: "";
+    left: -20px;
+    width: 3px;
+    height: 100%;
+    top: -2px;
+    background-color: #24984e;
+}
+
+.lesson {
+    background-color: #24984e;
+}
+
+    .lesson .title {
+        color: #fff;
+    }
+
+    .lesson .section-para {
+        font-size: 30px;
+        color: #fff;
+        line-height: 1.3;
+    }
+
+.testimonial {
+    background-color: #f7f7f7;
+}
+
+    .testimonial .item {
+        position: relative;
+    }
+
+        .testimonial .item .slider-title {
+            font-size: 45px;
+            line-height: 60px;
+            color: #000;
+            font-weight: 400;
+            position: relative;
+            width: 90%;
+            padding: 26px 15px;
+            margin: 0 auto;
+        }
+
+            .testimonial .item .slider-title::before {
+                content: "\f10d";
+                font-family: FontAwesome;
+                position: absolute;
+                top: 0;
+                left: -40px;
+            }
+
+            .testimonial .item .slider-title::after {
+                content: "\f10e";
+                font-family: FontAwesome;
+                position: absolute;
+                bottom: 0;
+                right: 0;
+            }
+
+        .testimonial .item .slider-author {
+            color: #24984e;
+            font-weight: 900;
+            text-align: end;
+            padding-top: 5px;
+            font-size: 20px;
+        }
+
+.my-plans .top {
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.my-plans .sub-title {
+    font-size: 30px;
+    font-weight: 600;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.my-plans .section-para {
+    padding: 15px;
+    text-align: center;
+    color: #000;
+}
+
+.toggle-btn {
+    margin-top: 20px;
+}
+
+    .toggle-btn span {
+        font-size: 20px;
+        font-weight: 500;
+    }
+        .toggle-btn span:first-child {
+            color: #24984e;
+        }
+
+.my-plans .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    vertical-align: middle;
+    margin: 10px 0;
+}
+
+    .my-plans .switch input {
+        opacity: 1;
+        width: 0;
+        height: 0;
+    }
+
+.my-plans .slider.round {
+    border-radius: 34px;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #1e2321;
+    -webkit-transition: 0.4s;
+    transform: translate(0px, 0px);
+    transition: 0.6s ease transform, 0.6s box-shadow;
+}
+
+.my-plans .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+.my-plans input:focus + .slider {
+    box-shadow: 0 0 1px #24984e;
+}
+
+.my-plans input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+.my-plans input:checked + .slider {
+    background-color: #24984e;
+}
+
+.my-plans .packages {
+    width: 100%;
+    height: 100%;
+    background-color: #edf4db;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    flex-wrap: wrap;
+    color: #000;
+    padding: 40px;
+}
+
+.plan-value-section {
+    min-height: 335px;
+    text-align: center;
+}
+
+.packages .sub-title {
+    padding-top: 30px;
+    margin-bottom: 10px;
+}
+
+.my-plans .packages .price {
+    color: #24984e;
+    font-weight: 700;
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+    .my-plans .packages .price sub {
+        font-size: 16px;
+        font-weight: 700;
+        /* color: #000; */
+    }
+
+.desc-txt {
+    padding: 15px;
+    text-align: center;
+    font-size: 16px;
+    color: #000;
+}
+
+.packages h5 {
+    color: #0000008c;
+    font-weight: 500;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+.packages h6 {
+    color: #000;
+    font-weight: 600;
+    font-size: 20px;
+    margin-top: 15px;
+    text-transform: capitalize;
+    margin-bottom: 12px;
+}
+
+.my-plans .packages p {
+    text-align: center;
+    margin: 15px 0;
+    font-size: 15px;
+    font-weight: 400;
+    color: #000;
+}
+
+.my-plans .list {
+    margin: 30px 0;
+    width: 100%;
+}
+
+    .my-plans .list li {
+        font-size: 23px;
+        font-weight: 600;
+        line-height: 28px;
+        color: #000;
+        margin-bottom: 15px;
+        position: relative;
+        padding: 0 15px;
+    }
+
+        .my-plans .list li:last-of-type {
+            margin-bottom: 0;
+        }
+
+.my-plans .card-body li:before {
+    position: absolute;
+    content: "";
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    left: -2%;
+    background-color: #24984e;
+    top: 10px;
+}
+
+.my-plans .list li:before {
+    position: absolute;
+    content: "";
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    left: -6px;
+    background-color: #24984e;
+    top: 8px;
+}
+
+.my-plans .btn_1 {
+    color: #fff;
+    font-size: 23px;
+    min-width: 213px;
+    min-height: 60px;
+    text-transform: uppercase;
+    line-height: 44px;
+    font-weight: 600;
+    display: flex;
+    padding: 12px 50px;
+    justify-content: center;
+    align-items: center;
+}
+
+.cta1 {
+    padding-top: 0;
+}
+
+
+    .cta1 .title {
+        font-size: 60px;
+        font-weight: 700;
+    }
+
+        .cta1 .title strong {
+            color: #24984e;
+            font-weight: 600 !important;
+        }
+
+    .cta1 .btn_try_now {
+        font-size: 30px;
+        width: 300px;
+        display: block;
+        min-height: 80px;
+        line-height: 60px;
+        background-color: #24984E;
+        border-color: #24984E;
+        color: #fff;
+        border-radius: 10px;
+        padding: 0.57rem 1.63rem;
+        margin-left: auto;
+    }
+
+.cta h2.title {
+    margin-bottom: 0;
+    font-size: 48px;
+    font-weight: 500;
+}
+
+
+@media (max-width: 1399px) {
+    /*---Default Section Start---*/
+
+    .lorem ul li::before {
+        font-size: 45px;
+        top: -15px;
+    }
+    /*---Default Section End---*/
+
+    /*---Free Trail Section Start---*/
+    .free_trail .btn_2 {
+        font-size: 14px;
+        padding: 10px 14px;
+    }
+}
+
+@media (max-width: 1199px) {
+    /*---Free Trail Section Start---*/
+    .free_trail button.btn_2 {
+        font-size: 12px;
+        padding: 10px 8px;
+    }
+
+    .digital_learning figcaption .image_heading {
+        min-height: 70px;
+    }
+
+    .cta .btn_1 {
+        padding: 14px 40px;
+    }
+}
+
+@media (max-width: 991px) {
+        .cta h2.title {
+            font-size: 30px;
+        }
+        .plan-value-section {
+            min-height: unset;
+        }
+        .learning {
+            margin-bottom: 50px;
+        }
+        .main-heading-style-one .section-para span a {
+            font-size: 16px;
+        }
+    /*---Free Trail Section Start---*/
+    .hero .form-control {
+        padding-right: 168px;
+    }
+
+    .hero small {
+        margin-top: 10px;
+    }
+
+    .free_trail button.btn_2 {
+        font-size: 15px;
+        padding: 8px 8px;
+        min-height: auto;
+        position: absolute;
+        top: 3px;
+        right: 3px;
+        border-radius: 8px;
+        border: 0;
+    }
+
+    .hero img {
+        margin-top: 30px;
+    }
+
+    .traning ul li {
+        position: relative;
+        padding-left: 25px;
+        margin-bottom: 30px;
+    }
+
+        .traning ul li::before {
+            font-size: 30px;
+            top: -10px;
+        }
+
+    .lorem ul li {
+        padding-left: 20px;
+        margin-bottom: 30px;
+    }
+
+        .lorem ul li::before {
+            font-size: 28px;
+            top: -8px;
+        }
+
+    .courses ul li {
+        padding-left: 25px;
+    }
+
+        .courses ul li::before {
+            left: 0;
+            top: 9px;
+        }
+
+        .courses ul li p strong {
+            font-size: 18px;
+        }
+
+    .digital_learning .img_top {
+        margin-bottom: 0px;
+    }
+
+    .digital_learning figcaption .image_heading {
+        min-height: auto;
+        font-size: 24px;
+        margin: 20px 0 10px !important;
+        height:auto;
+    }
+
+    .congrats .congrats_detail {
+        margin-left: 20px;
+    }
+
+    .lesson .section-para {
+        font-size: 16px;
+    }
+
+    .testimonial .item .slider-title {
+        font-size: 16px;
+        line-height: 1.7;
+    }
+
+    .testimonial .item .slider-author {
+        font-size: 16px;
+    }
+
+    .testimonial .item .slider-title::before {
+        left: 0;
+    }
+
+        .my-plans .sub-title {
+            font-size: 25px;
+        }
+
+    .packages .title {
+        font-size: 30px;
+        margin-bottom: 10px;
+    }
+
+    .my-plans .list li {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .my-plans .packages {
+        padding: 20px;
+    }
+
+    .cta1 .title {
+        font-size: 30px;
+    }
+
+    .cta1 .btn_try_now {
+        font-size: 18px;
+        font-weight: 400;
+        width: 200px;
+        min-height: 47px;
+        line-height: 30px;
+    }
+
+    .cta .btn_1 {
+        padding: 14px 32px;
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 767px) {
+    .cta .title {
+        margin-bottom: 40px;
+        text-align: center;
+        font-size: 30px;
+    }
+
+    .cta1 .btn_try_now {
+        margin: auto;
+    }
+
+    .cta .btn_1 {
+        padding: 10px 20px;
+        font-size: 16px;
+        min-width: auto;
+        min-height: auto;
+        line-height: normal;
+        font-weight: 400;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    /*---Free Trail Section Start---*/
+    #errorInvalid,
+    #errorExist {
+        position: absolute;
+        left: 0;
+        bottom: -25px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+    .plan-value-section {
+        min-height: 380px;
+    }
+}
+
+/*@media (min-width: 991px) and (max-width: 1300px) {
+        .my-plans .list li {
+            font-size: 14px;
+        }
+    }
+*/
+
+

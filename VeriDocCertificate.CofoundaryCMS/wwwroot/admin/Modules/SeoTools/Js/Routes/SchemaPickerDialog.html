@@ -1,0 +1,30 @@
+﻿<cms-modal-dialog-container cms-modal-size="large">
+    <cms-modal-dialog-header>Find Custom Schema</cms-modal-dialog-header>
+    <cms-page-actions>
+        <cms-button class="main-cta" cms-text="Ok" ng-click="onOk()"></cms-button>
+        <cms-button cms-text="Cancel" ng-click="onCancel()"></cms-button>
+    </cms-page-actions>
+    <cms-page-body>
+        <cms-table-container cms-loading="gridLoadState.isLoading">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th cms-table-column-actions>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-if="menuItems.items.length == 0">
+                        <td colspan="100" class="empty">Sorry, no menu item could be found.</td>
+                    </tr>
+                    <tr ng-repeat="entity in menuItems.items" ng-class="(isSelected(entity)) ? \'selected\' : \'selectable\'" ng-click="onSelect(entity)" ng-dblclick="onSelectAndClose(entity)">
+                        <td>{{entity.model.id}}</td>
+                        <td>{{entity.model.name}}</td>
+                        <td cms-table-column-actions><a href="" ng-if="!isSelected(entity)" class="btn-icon" title="Select"><i class="fa fa-square-o"></i></a><a href="" ng-if="isSelected(entity)" class="btn-icon" title="Selected"><i class="fa fa-check-square-o"></i></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </cms-table-container>
+    </cms-page-body>
+</cms-modal-dialog-container>

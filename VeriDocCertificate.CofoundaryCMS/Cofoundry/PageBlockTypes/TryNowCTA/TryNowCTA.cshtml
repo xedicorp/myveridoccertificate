@@ -1,0 +1,40 @@
+﻿@model TryNowCTADisplayModel
+@inject ICofoundryBlockTypeHelper<TryNowCTADisplayModel> Cofoundry
+
+@{
+    Cofoundry.BlockType.UseDescription("Free Trial Banner with optional citation and title");
+}
+
+@if (Model != null)
+{
+
+    <!------------GreenBG section start--------->
+    <section class="cta1">
+        @if(Model.LinkBtn == null)
+        {
+            <div class="container">
+                <h2 class="title text-white text-center">
+                    @Model.Title
+                </h2>
+            </div>
+        }
+        else{
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        @Model.Title
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <a href="~/@Model.LinkBtn" class="btn_try_now">Try Now</a>
+                    </div>
+                </div>
+            </div>
+        }
+        
+         
+    </section>
+  
+    <!------------GreenBG section Ends--------->
+
+
+}

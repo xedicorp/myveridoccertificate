@@ -1,0 +1,131 @@
+body{
+    overflow-y:scroll;
+}
+.send_us_message {
+    padding: 30px;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+    .send_us_message .heading {
+        text-align: center;
+        margin-bottom: 20px;
+        font-weight: 700;
+        font-size: 24px;
+    }
+.max_200 {
+    font-family: 'Roboto', sans-serif;
+    color: #58595A;
+    font-size: 14px;
+    text-align: end;
+    font-weight: 400;
+}
+
+textarea.form-control {
+    height: auto;
+    
+}
+.send_us_message .btn_2 {
+    min-height: 50px;
+    line-height: 28px;
+    border-radius: 10px;
+    padding: 0.57rem 1.63rem;
+    font-size: 16px;
+    margin-top:30px;
+}
+#btnContact {
+    position: relative;
+}
+.contact_us .title {
+    font-size: 48px;
+    margin: 0;
+    color: #000;
+    font-weight: 700;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.2;
+}
+    .contact_us .title:last-of-type {
+        margin-bottom: 60px;
+    }
+.contact_detail p {
+    font-size: 20px;
+}
+.contact_detail li:not(:last-of-type) {
+    margin-bottom: 20px;
+}
+.contact_detail li a i, .contact_detail li a img {
+    margin-right: 20px;
+    margin-top: 5px;
+}
+.contact_detail li a i {
+    color: #24984e;
+}
+.contact_detail li i {
+    font-size: 21px;
+}
+.contact-add p {
+    max-width: 400px;
+}
+section.contact_us {
+    padding-top: 50px;
+    position: relative;
+    min-height: calc(100vh - 668px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+    section.contact_us:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        background: #f4f7eb;
+        height: 190px;
+        width: 100%;
+        z-index: -1;
+    }
+.contact-add i {
+    margin-left: 5px;
+}
+
+
+.grecaptcha-badge {
+    width: 70px !important;
+    transition: all 0.3s ease !important;
+    left: 0px;
+}
+
+    .grecaptcha-badge:hover {
+        width: 256px !important;
+    }
+
+@media (max-width: 991px) {
+    .grecaptcha-badge {
+        z-index: 11111;
+    }
+    .send_us_message {
+        margin-top: 50px;
+    }
+    .contact_us .title {
+        font-size: 35px;
+    }
+}
+@media (max-width: 767px) {
+    .contact_us .title {
+        margin-bottom: 5px;
+    }
+}
+@media (max-width: 575px)  {
+    .contact_us .title {
+        font-size: 27px;
+    }
+}
+@media (min-width:1400px){
+    section.contact_us:after {
+        display: none;
+    }
+}
+
+
+

@@ -1,0 +1,62 @@
+﻿@model DefaultContentDisplayModel
+@inject ICofoundryBlockTypeHelper<DefaultContentDisplayModel> Cofoundry
+
+@{
+    Cofoundry.BlockType.UseDescription("Default content reffers a simple section with image and content.");
+}
+
+@if (Model != null)
+{
+
+    <!------------Lorem section Start--------->
+    <section class="@Model.SectionName @Model.BackgroundColor">
+        <div class="container">
+    @if (Model.SectionSubTitle != "" && Model.SectionTitle != null)
+            {            
+                <div class="row">
+                <div class="col-lg-9 text-center mx-auto mb-lg-5 mb-3">
+                     @if (Model.SectionTitle != "" && Model.SectionTitle != null)
+                        {
+                            <h2 class="title">@Model.SectionTitle</h2>
+                        }
+                          @if (Model.SectionSubTitle != "" && Model.SectionSubTitle != null)
+                        {
+                    <p class="section-para">
+                        @Model.SectionSubTitle 
+                    </p>
+                        }
+                </div>               
+            </div>
+            }
+            @if(Model.Orientation != "Left_Image_Right_Content")
+            {
+                <div class="row">
+                    <div class="col-lg-6 my-lg-auto">
+                        <div class="content-div">
+                            @Model.SectionDescription
+                        </div>
+                        
+                    </div>
+                    <div class="col-lg-6 my-lg-auto mt-3 mt-lg-auto">
+                        <img src="@Model.SectionImageID" class="img-fluid" alt="VeriDoc Certificates" title="VeriDoc Certificates">
+                    </div>
+                </div>
+            }
+            else{
+                <div class="row">
+                    <div class="col-lg-6 my-lg-auto mb-3 mb-lg-auto">
+                        <img src="@Model.SectionImageID" class="img-fluid" alt="VeriDoc Certificates" title="VeriDoc Certificates">
+                    </div>
+                    <div class="col-lg-6 my-lg-auto">
+                        <div class="content-div">
+                            @Model.SectionDescription
+                        </div>
+                    </div>
+                </div>
+            }
+            
+        </div>
+
+    </section>
+    <!------------Lorem section End--------->
+}

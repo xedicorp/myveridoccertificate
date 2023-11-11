@@ -1,0 +1,576 @@
+﻿@model SignupResponseModel
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment | VeriDoc Certificates</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="apple-touch-icon" sizes="57x57" href="~/images/favicon/apple-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="60x60" href="~/images/favicon/apple-icon-60x60.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="~/images/favicon/apple-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="~/images/favicon/apple-icon-76x76.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="~/images/favicon/apple-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="~/images/favicon/apple-icon-120x120.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="~/images/favicon/apple-icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="~/images/favicon/apple-icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="~/images/favicon/apple-icon-180x180.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="~/images/favicon/android-icon-192x192.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="~/images/favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="~/images/favicon/favicon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="~/images/favicon/favicon-16x16.png" />
+    <!-- Fonts  -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">  
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/global.css" asp-append-version="true">
+    <link href="~/css/header-footer.css" rel="stylesheet" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Payment.css">
+    <link rel="stylesheet" href="~/css/pay-font-awesome.min.css" />
+    <link href="~/css/loader.css" rel="stylesheet" asp-append-version="true"/>
+
+    @if (Configuration.GetSection("AppEnvironment").Value == "sandbox")
+    {
+        <script type="text/javascript" src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
+    }
+    else
+    {
+        <script type="text/javascript" src="https://web.squarecdn.com/v1/square.js"></script>
+    }
+
+    <script type="text/javascript">
+        const appId = '@Model.AppId';
+        const locationId = '@Model.LocationId';
+        var Name = '@Model.PlanName';
+        var PriceAU = '@Model.PriceAUD';
+        var Price = '@Model.PriceUSD';
+        var Id = '@Model.PlanId';
+        var CustomerId = '@Model.CustomerId';
+        var QrCount = '@Model.Certificates';
+        var customerEmail = '@Model.CustomerEmail';
+        var customerName = '@Model.CustomerName';
+        var template = '@Model.IsTemplate';
+
+        async function initializeCard(payments) {
+            const card = await payments.card();
+            await card.attach('#card-container');
+            return card;
+        }
+
+        // Call this function to send a payment token, buyer name, and other details
+        // to the project server code so that a payment can be created with
+        // Payments API
+        async function createPayment(Token) {
+            const body = JSON.stringify({
+                "CustomerId": CustomerId,
+                "CustomerEmail": customerEmail,
+                "CustomerName": customerName,
+                "PlanId": Id,
+                "PlanName": Name,
+                "PriceAUD": PriceAU,
+                "PriceUSD": Price,
+                "CardToken": Token,
+                "IsTemplate": template == 'True' ? true : false,
+                "HolderName": document.getElementById('txt_card_holder_name').value,
+                "Address": document.getElementById('txt_card_holder_name_address').value,
+                "State": document.getElementById('txt_card_holder_name_state').value,
+                "Zip": document.getElementById('txt_card_holder_name_zip_code').value
+            });
+            console.log(JSON.parse(body));
+
+            $.ajax({
+                url: "/Payment/CreateSubscription",
+                method: 'POST',
+                data: body,
+                contentType: 'application/json',
+                success: function (data, textStatus, xhr) {
+                    hideLoader(1000);
+                    document.getElementById('card-button').disabled = false;
+                    document.getElementById('card-button').style.cursor = 'pointer';
+                    if (data.code == 400) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: data.msg,
+                        });
+                    } else if (data.code == 500) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: "Server Error!",
+                        });
+                    } else if (data.code == 200) {
+                        window.location.href = "/Payment/Success";
+                    }
+                    console.log(data);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log(xhr);
+                    document.getElementById('card-button').disabled = false;
+                    document.getElementById('card-button').style.cursor = 'pointer';
+                    if (xhr.status == 500) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: "Server Error!",
+                        });
+                    }
+                }
+            });
+        }
+
+        // This function tokenizes a payment method.
+        // The ‘error’ thrown from this async function denotes a failed tokenization,
+        // which is due to buyer error (such as an expired card). It is up to the
+        // developer to handle the error and provide the buyer the chance to fix
+        // their mistakes.
+        async function tokenize(paymentMethod) {
+            const tokenResult = await paymentMethod.tokenize();
+            if (tokenResult.status === 'OK') {
+                return tokenResult.token;
+            } else {
+                let errorMessage = `Tokenization failed-status: ${tokenResult.status}`;
+                if (tokenResult.errors) {
+                    errorMessage += ` and errors: ${JSON.stringify(
+                        tokenResult.errors
+                    )}`;
+                }
+                throw new Error(errorMessage);
+            }
+        }
+
+        // Helper method for displaying the Payment Status on the screen.
+        // status is either SUCCESS or FAILURE;
+        function displayPaymentResults(status) {
+            const statusContainer = document.getElementById('payment-flow-message');
+            if (status === 'SUCCESS') {
+                statusContainer.classList.remove('is-failure');
+                statusContainer.classList.add('is-success');
+            } else {
+                statusContainer.classList.remove('is-success');
+                statusContainer.classList.add('is-failure');
+            }
+
+            statusContainer.style.visibility = 'visible';
+        }
+
+        document.addEventListener('DOMContentLoaded', async function () {
+            showLoader('Loading', 500, 100)
+            hideLoader(500)
+            if (!window.Square) {
+                throw new Error('Square.js failed to load properly');
+            }
+
+            const payments = window.Square.payments(appId, locationId);
+            let card;
+            try {
+                card = await initializeCard(payments);
+            } catch (e) {
+                console.error('Initializing Card failed', e);
+                return;
+            }
+
+            // Checkpoint 2.
+            async function handlePaymentMethodSubmission(event, paymentMethod) {
+                event.preventDefault();
+                try {
+                    let list = [
+                        document.querySelector("#txt_card_holder_name"),
+                        document.querySelector("#txt_card_holder_name_zip_code"),
+                        document.querySelector("#txt_card_holder_name_state"),
+                        document.querySelector("#txt_card_holder_name_address"),
+                        //document.querySelector("#cardNumber"),
+                        //document.querySelector("#expirationDate"),
+                        //document.querySelector("#cvv")
+                    ];
+
+                    if (validateInput1(list)) {
+                        return;
+                    }
+                    
+                    document.getElementById('payment-flow-message').className = '';
+                    document.getElementById('payment-flow-message').innerHTML = '';
+
+                    cardButton.disabled = true;
+                    cardButton.style.cursor = 'not-allowed';
+                   
+                    const token = await tokenize(paymentMethod);
+                    const paymentResults = await createPayment(token);
+                    showLoader('Processing... Please wait', 5000, 80);
+                    displayPaymentResults('SUCCESS');
+                    console.debug('Payment Success', paymentResults);
+                }
+                catch (e) {
+                    cardButton.disabled = false;
+                    cardButton.style.cursor = 'pointer';
+                    displayPaymentResults('FAILURE');
+                    console.error(e.message);
+                }
+            }
+
+            const cardButton = document.getElementById('card-button');
+            cardButton.addEventListener('click', async function (event) {
+                await handlePaymentMethodSubmission(event, card);
+            });
+        });
+
+        function validateBlankField() {
+
+            //Validating all textfield with required attribute
+            $(".validation-work input").each(function () {
+                var $el = $(this);
+                if ($el.attr('required') !== undefined) {
+                    $el.on("keyup", function () {
+                        markValidColor($el);
+                    });
+
+                    markValidColor($el);
+                }
+            });
+
+            //Validating textarea
+            markValidColor($('#ta_message'));
+        }
+
+        function markValidColor(el) {
+            if (el.val() == "")
+                el.css('border', '1px solid red');
+            else
+                el.css('border', '');
+        }
+        function validateInput1(elementList) {
+            let v = false;
+            let message = '<p>Please enter all required fields.</p>';
+            elementList.forEach(element => {
+                if (element.getAttribute('type') == 'email') {
+                    if (element.value == '') {
+                        message = '<p>Please enter all required fields.</p>';
+                        v = true;
+                        element.style.border = '1px solid red';
+                    }
+                    else if (!validateEmail(element.value)) {
+                        message = '<p>Please enter valid email.</p>';
+                        element.style.border = '1px solid red';
+                        v = true;
+                    }
+                    else {
+                        element.style.border = '1px solid #cccccc';
+                    }
+                }
+                else if (element.nodeName == "SELECT") {
+                    if (element.value == 'Choose Country') {
+                        //message = '<p>Please enter all required fields.</p>';
+                        element.nextElementSibling.querySelector('span.select2-selection.select2-selection--single').style.border = '1px solid red';
+                        v = true;
+                    }
+                    else {
+                        element.nextElementSibling.querySelector('span.select2-selection.select2-selection--single').style.border = '1px solid #cccccc';
+                    }
+                }
+                else if (element.getAttribute('type') == 'number') {
+                    if (element.value == '') {
+                        //message = '<p>Please enter all required fields.</p>';
+                        element.style.border = '1px solid red';
+                        v = true;
+                    }
+                    else if (element.value.length < 9 || element.value.length > 10) {
+                        message = '<p>Please enter valid phone number.</p>';
+                        element.style.border = '1px solid red';
+                        v = true;
+                    }
+                    else {
+                        element.style.border = '1px solid #cccccc';
+                    }
+                }
+                else if (element.getAttribute('type') == 'password') {
+                    if (!validatePassword(element.value)) {
+                        //message = '<p>Please enter all required fields.</p>';
+                        v = true;
+                        element.style.border = '1px solid red';
+                    }
+                    else {
+                        element.style.border = '1px solid #cccccc';
+                    }
+                }
+                else {
+                    if (element.value == '00:00AM' || element.value == '') {
+                        //message = '<p>Please enter all required fields.</p>';
+                        if (element.value == '00:00AM') {
+                            element.parentElement.querySelector('#datep').style.border = '1px solid red';
+                        }
+                        else {
+                            element.style.border = '1px solid red';
+                        }
+                        v = true;
+                    }
+                    else {
+                        element.style.border = '1px solid #cccccc';
+                    }
+                }
+            });
+            if (v) {
+                showError2(message);
+                hideLoader(800);
+            }
+            return v;
+        }
+        function showError2(msg, element) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                html: msg,
+                customClass: {
+                    closeButton: 'btn_2',
+                    confirmButton: 'btn_2',
+                    cancelButton: 'btn_2',
+                }
+            }).then(function () {
+                if (element != undefined || element != null) {
+                    //element.style.border = '1px solid red';
+                }
+            });
+        }
+    </script>
+</head>
+<body class="home-1">
+    <header class="fixed-header">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="/">
+                    <img src="~/images/logo.png" alt="VeriDoc Certificates" title="VeriDoc Certificates" class="img-fluid">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse ml-auto" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/#pricing">Pricing</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/feature-and-benefits">Features and Benefits</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/blog">Blogs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/faq">FAQs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/contact">Contact Us</a>
+                        </li>
+                        <li class="nav-item dropdown profile-dropdown">
+                            <a target="_blank" href="https://my.veridoccertificates.com/" rel="noopener noreferrer" class="login_icon"><img src="/images/user-icon.svg" alt="VeriDoc Certificates" title="VeriDoc Certificates"></a>
+                        </li>
+                        <li class="nav-item d-lg-none">
+                            <a class="nav-link" target="_blank" href="https://my.veridoccertificates.com/">Login</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    </header>
+    <main class="main">
+        <div class="spanner" style="display:none;">
+            <div class="overlay"></div>
+            <img src="~/images/loader.svg" class="img-fluid" alt="VeriDoc Certificates" title="VeriDoc Certificates" />
+            <div class="loader-footer">
+                <div class="white-bg countPercentage">
+                    <span data-count="">0</span>
+                    %
+                </div>
+                <h4><span class="custom-text"></span> <span id="dots">..</span></h4>
+                <img src="~/images/logo.svg" class="img-fluid" alt="VeriDoc Certificates" title="VeriDoc Certificates" />
+            </div>
+        </div>
+        <section class="payment_section">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-7">
+                        <div class="payment_img">
+                            <img class="img-fluid" src="~/images/payment/payment_img.webp" />
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <form class="payment-form" id="fast-checkout">
+                            <div class="wrapper validation-work">
+                                <div class="row mb-2">
+                                    <div class="col-md-12">
+                                        <div class="card_image_payment">
+                                            <img class="img-fluid" src="~/images/payment/visa_icon.svg" />
+                                            <img class="img-fluid" src="~/images/payment/mastercard_icon.svg" />
+                                        </div>
+                                        <div class="payment_heading">
+                                            <h1>Enter Card Details</h1>
+                                            <p>Please enter your card details below to complete the payment.</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Card Holder Name</label>
+                                            <input type="text" placeholder="Enter your name" id="txt_card_holder_name" required/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Address</label>
+                                            <input type="text" placeholder="Enter your address" id="txt_card_holder_name_address" required/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>State</label>
+                                            <input type="text" placeholder="Enter your state" id="txt_card_holder_name_state" required/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Zip</label>
+                                            <input type="text" placeholder="Enter zip code" id="txt_card_holder_name_zip_code" required/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="card-container"></div>
+                                <p class="d-flex justify-content-between mb-4" style="color:#24984E;font-size:18px; font-weight:bold;">
+                                    <span>Total Amount:</span>
+                                    <span>$@(Model.PriceUSD.ToString("N2"))<sub class="" style="top:-1px"> USD</sub></span>
+                                </p>
+                                <button id="card-button" type="button" onclick="validateBlankField()">Pay with Card</button>
+                                <span id="payment-flow-message"></span>
+                            </div>
+                        </form>
+                        <div class="back-to-home">
+                            <a class="" href="~/"><i class="fa-solid fa-arrow-left  me-2"></i>Back to Home Page</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="footer">
+            <div class="container">
+                <div class="row flex-row-reverse flex-lg-row">
+                    <div class="col-md-6 col-lg-3 my-auto mb-md-5 mb-4 mt-lg-0 mb-lg-0">
+                        <div class="footer_logo">
+                            <a href="/"><img src="~/images/footer-logo.png" class="img-fluid" alt="VeriDoc Certificates" title="VeriDoc Certificates"></a>
+                        </div>
+                        <div class="footer_social_icon">
+                            <a aria-label="Social" target="_blank" href="https://facebook.com/VeriDocGlobal" class="me-2">
+                                <span>
+                                    <i class="fa fa-facebook" title="facebook"></i>
+                                </span>
+                            </a>
+                            <a aria-label="Social" target="_blank" href="https://instagram.com/VeriDocGlobal/" class="me-2">
+                                <span>
+                                    <i class="fa fa-instagram" title="instagram"></i>
+                                </span>
+                            </a>
+                            <a aria-label="Social" target="_blank" href="https://t.me/veridocglobal" class="me-2">
+                                <span>
+                                    <i class="fa fa-telegram" title="telegram"></i>
+                                </span>
+                            </a>
+                            <a aria-label="Social" target="_blank" href="https://twitter.com/VeriDocGlobal" class="me-2">
+                                <span>
+                                    <i class="fa-brands fa-x-twitter" title="twitter"></i>
+                                </span>
+                            </a>
+                            <a aria-label="Social" target="_blank" href="https://www.linkedin.com/company/veridocglobal" class="me-2">
+                                <span>
+                                    <i class="fa fa-linkedin" title="linkedin"></i>
+                                </span>
+                            </a>
+                            <a aria-label="Social" target="_blank" href="https://veridocglobal.medium.com/" class="me-2">
+                                <span>
+                                    <i class="fa-brands fa-medium" title="medium"></i>
+                                </span>
+                            </a>
+                            <a aria-label="Social" target="_blank" href="https://www.pinterest.com.au/veridocglobal/" class="me-2">
+                                <span>
+                                    <i class="fa fa-pinterest" title="pinterest"></i>
+                                </span>
+                            </a>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer_heading usefull_link">
+                            <h3>Useful Links</h3>
+                            <ul>
+                                <li class="nav-item">
+                                    <a href="/feature-and-benefits">Features and Benefits</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/blog">Blogs</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/faq">FAQs</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/contact">Contact Us</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/privacy-policy">Privacy Policy</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="footer_heading footer-contact">
+                            <h3>Contact Us</h3>
+                            <ul>
+                                <li>
+                                    <a href="https://www.google.com/maps/place/18%2F123+Eagle+St,+Brisbane+City+QLD+4000,+Australia/@@-27.4671943,153.0303993,17z/data=!3m1!4b1!4m6!3m5!1s0x6b915a1db3d4c0d3:0x8f5089497c593473!8m2!3d-27.4671943!4d153.0303993!16s%2Fg%2F11m__t8yv5?entry=ttu" class="d-flex text-white" target="_blank">
+                                        <span><i class="fa fa-map-marker"></i></span>
+                                        <p>
+                                            Level 18, 123 Eagle Street,  Brisbane, Queensland 4000 Australia
+                                        </p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="mailto:admin@veridoccertificates.com" class="d-flex text-white align-items-center">
+                                        <span><i class="fa fa-envelope"></i></span>
+                                        <p>
+                                            admin@veridoccertificates.com
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-2 text-lg-end mb-md-5 mb-4 mb-lg-0" id="top">
+                        <a href="https://veridocglobal.com/" target="_blank">
+                            <img src="~/images/veridoc-global.png" class="img-fluid veridoc" alt="VeriDoc Global" title="VeriDoc Global">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <p class="text-white">© <script>new Date().getFullYear() > document.write(new Date().getFullYear());</script> | ALL RIGHTS RESERVED, VERIDOC GLOBAL PTY LTD</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End main area -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript" src="~/js/ProperJS.js"></script>
+    <script src="~/js/loaders.js"></script>    
+    <script src="~/js/bootstrap.bundle.js"></script>
+</body>
+</html>

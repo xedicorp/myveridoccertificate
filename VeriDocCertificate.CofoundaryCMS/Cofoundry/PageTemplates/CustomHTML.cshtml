@@ -1,0 +1,19 @@
+﻿@model IPageViewModel
+@inject ICofoundryTemplateHelper<IPageViewModel> Cofoundry
+
+@Cofoundry.Template.UseDescription("This template shoud be used for custom HTML needed")
+
+@section Styles{
+    <link href="~/css/policy.css" rel="stylesheet" />
+}
+
+@(await Cofoundry.Template.Region("Body")
+                .AllowMultipleBlocks()
+                .AllowBlockType<CustomHTMLDataModel>()
+                .EmptyContentMinHeight(500)
+                .InvokeAsync())
+
+@section FooterScripts{
+  
+  
+}

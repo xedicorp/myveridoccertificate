@@ -1,0 +1,42 @@
+﻿@model PagedQueryResult<BlogPostSummary>
+@inject ICofoundryHelper Cofoundry
+
+@{
+    Layout = null;
+}
+
+@foreach (var blogPost in Model.Items)
+{
+
+    var postDateText = blogPost.PostDate.HasValue ? blogPost.PostDate.Value.ToString("dd MMM yyyy") : "Not published";
+    var myList = blogPost.Categorylist;
+    var CategoryName = "";
+    var sb = new System.Text.StringBuilder();
+
+    foreach (var s in myList)
+    {
+        sb.Append("Category").Append(s).Append(" ");
+    }
+
+    CategoryName = sb.ToString(); // Removes last ","
+    
+    <div class="col-lg-4 col-md-6 @CategoryName">
+        
+        <div class="card">
+            <a href="@blogPost.FullPath">
+                <img src="@Cofoundry.Routing.DocumentAsset(blogPost.ThumbnailImageAsset)" class="img-fluid" alt="VeriDoc Certificates" title="VeriDoc Certificates">
+            </a>
+            <a href="@blogPost.FullPath">
+                <div class="card-body">
+                <h5 class="card-title">@blogPost.Title</h5>
+                <p class="card-text">
+                    @blogPost.ShortDescription
+                </p>
+                <a href="@blogPost.FullPath" class="the_green">READ MORE <span><i class="fa fa-angle-right"></i></span></a>
+            </div>
+            </a>
+        </div>
+
+    </div>
+
+}

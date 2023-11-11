@@ -1,0 +1,34 @@
+﻿@model IPageViewModel
+@inject ICofoundryTemplateHelper<IPageViewModel> Cofoundry
+
+@Cofoundry.Template.UseDescription("Template for the blog post listing page")
+@section styles{
+    <link href="~/css/blog.css" rel="stylesheet" asp-append-version="true" />
+}
+<section class="blog-slide-sec">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2>Blogs</h2>
+                <div class="blog-slide col-md-12 p-0">
+                    <div id="blog-slider" class="owl-carousel owl-theme">
+                        @await Component.InvokeAsync("BlogPostCarousel")
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<section class="blog-tab">
+    <div class="container">
+        <div class="tab-navigation">
+            @await Component.InvokeAsync("FilterCategories")
+        </div>
+
+        <div class="row" id="parent">
+            @await Component.InvokeAsync("BlogPostList")
+        </div>
+    </div>
+
+</section>

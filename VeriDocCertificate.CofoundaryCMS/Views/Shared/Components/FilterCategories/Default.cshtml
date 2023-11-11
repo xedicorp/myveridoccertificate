@@ -1,0 +1,25 @@
+﻿@model ICollection<CategorySummary>
+
+@{
+    Layout = null;
+}
+
+<ul class="list-group--alt">
+   
+</ul>
+<ul class="nav">
+    <li class="nav-item"><a class="active btn-tab" id="all"> All </a></li>
+    @foreach (var category in Model)
+    {
+        
+        var CategoryName = "";
+        var sb = new System.Text.StringBuilder();
+        sb.Append("Category").Append(@category.CategoryId).Append(" ");
+        CategoryName = sb.ToString(); // Removes last ","
+
+        <li class="nav-item"><a class="btn-tab" title="@category.ShortDescription" id="@CategoryName">@category.Title</a></li>
+    }
+   
+   
+    
+</ul>

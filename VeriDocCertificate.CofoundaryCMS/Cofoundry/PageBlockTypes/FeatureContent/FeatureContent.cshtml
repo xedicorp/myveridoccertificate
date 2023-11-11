@@ -1,0 +1,32 @@
+﻿@model FeatureContentDisplayModel
+@inject ICofoundryBlockTypeHelper<FeatureContentDisplayModel> Cofoundry
+@{
+    Cofoundry.BlockType.UseDescription("It defines some Key features of the website");
+}
+<section class="digital_learning">
+    <div class="container">
+        <div class="row">
+            
+            @for (int i = 0; i < Model.FeatureLists.Count; i++)
+            {
+                var item = Model.FeatureLists.ElementAt(i);
+                <div class="col-lg-4">
+                    <div class="learning">
+                        <figure class="text-center">
+                            <div class="img_top ">
+                                <img src="@item.FeatureImageUrl" class="img-fluid" alt="VeriDocCertificates" title="VeriDocCertificates">
+                            </div>
+                            <figcaption>
+                                <h3 class="image_heading heading_img">@item.FeatureTitle</h3>
+                                @item.FeatureDescription
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+                
+            }
+        </div>
+    </div>
+</section>
+
+

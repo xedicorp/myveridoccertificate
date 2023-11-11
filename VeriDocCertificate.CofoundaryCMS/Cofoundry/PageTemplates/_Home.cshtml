@@ -1,0 +1,19 @@
+﻿@model IPageViewModel
+@inject ICofoundryTemplateHelper<IPageViewModel> Cofoundry
+
+@Cofoundry.Template.UseDescription("This template shoud only be used for the homepage")
+@section styles{
+    <link href="~/css/index.css" rel="stylesheet" asp-append-version="true" />
+}
+
+
+
+@(await Cofoundry.Template.Region("Body")
+                .AllowMultipleBlocks()
+                .EmptyContentMinHeight(500)
+                .InvokeAsync())
+
+@section FooterScripts{
+    <script src="~/js/FreeTrialRequestAjax.js"></script>
+    
+}

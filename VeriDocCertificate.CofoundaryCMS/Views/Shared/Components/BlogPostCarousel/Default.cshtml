@@ -1,0 +1,35 @@
+﻿@model PagedQueryResult<BlogPostSummary>
+@inject ICofoundryHelper Cofoundry
+
+@{
+    Layout = null;
+}
+
+@{
+    var sliderCount = 1;
+    @foreach (var blogPost in Model.Items)
+    {
+        if (sliderCount > 5)
+            break;
+        var postDateText = blogPost.PostDate.HasValue ? blogPost.PostDate.Value.ToString("dd MMM yyyy") : "Not published";
+        <div class="item">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="blog-slide-text">
+                        <h3>@blogPost.Title</h3>
+                        <p>
+                            @blogPost.ShortDescription
+                        </p>
+                        <a href="@blogPost.FullPath" class="btn_2" target="_blank">Read More</a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <a href="@blogPost.FullPath">
+                        <img src="@Cofoundry.Routing.DocumentAsset(blogPost.ThumbnailImageAsset)" class="img-fluid" alt="VeriDoc Certificates" title="VeriDoc Certificates">
+                    </a>
+                </div>
+            </div>
+        </div>
+        sliderCount++;
+    }
+}

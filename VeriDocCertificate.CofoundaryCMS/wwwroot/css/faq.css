@@ -1,0 +1,134 @@
+
+/*----Faq Css Satrt----*/
+
+.faq-top-banner {
+    background-color: #0E3553;
+    text-align: center;
+    padding: 100px 0px;
+}
+
+    .faq-top-banner .main-heading-style-one h2 {
+        color: #fff;
+        font-size: 48px;
+        font-weight: bold;
+        margin-bottom: 35px;
+    }
+
+    .faq-top-banner .main-heading-style-one p {
+        color: #fff;
+        font-size: 24px;
+        margin: auto;
+    }
+
+        .faq-top-banner .main-heading-style-one p span a {
+            color: #29abe2;
+            font-size: 24px;
+        }
+
+section.faq-first-section {
+    padding: 100px 0;
+}
+
+    section.faq-first-section .accordion-item {
+        border-top: 2px solid #CCCCCC;
+        border-radius: 0px !important;
+        background: #fff !important;
+        border-left: none;
+        border-right: none;
+        border-bottom: 2px solid #CCCCCC;
+    }
+        section.faq-first-section .accordion-item:not(:last-of-type) {
+            border-bottom: none;
+        }
+
+        section.faq-first-section h2.accordion-header button {
+            font-size: 20px;
+            color: #58595A;
+            font-weight: 700;
+            font-family: 'Roboto', sans-serif;
+            padding: 22px 20px;
+        }
+
+.accordion-button::after {
+    color: #58595a;
+    content: "\f107";
+    font-family: Fontawesome;
+    background-image: none;
+    font-size: 24px;
+    position: relative;
+    /* top: 37%; */
+    font-weight: 400;
+    right: -10px;
+    /* transform: translateY(-15%); */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.accordion-body p {
+    font-size: 20px;
+    line-height: 1.7;
+    color: #58595a;
+    font-family: 'Roboto', sans-serif !important;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+section.faq-first-section .accordion-button:not(.collapsed)::after {
+    color: #24984e;
+    content: "\f106";
+    font-family: Fontawesome;
+    background-image: none;
+    font-size: 24px;
+    position: relative;
+    top: -5px;
+    right: -10px;
+    transform: revert;
+    font-weight: 400;
+}
+
+.faq-content .accordion-button:not(.collapsed) {
+    background-color: transparent;
+}
+
+.faq-content .accordion-body a {
+    position: relative;
+}
+
+@media (max-width: 1199px) {
+    .accordion-body p {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 991px) {
+    section.faq-first-section h2.accordion-header button {
+        font-size: 16px;
+    }
+
+    .faq-top-banner {
+        padding: 50px 0;
+    }
+
+        .faq-top-banner .main-heading-style-one h2 {
+            font-size: 30px;
+        }
+
+        .faq-top-banner .main-heading-style-one p {
+            font-size: 18px;
+        }
+
+    section.faq-first-section {
+        padding: 50px 0;
+    }
+}
+
+@media (max-width: 767px) {
+    .faq-top-banner .main-heading-style-one h2 {
+        font-size: 27px;
+    }
+}
+/*----Faq Css End----*/

@@ -1,0 +1,27 @@
+﻿@model CarouselDisplayModel
+@inject ICofoundryBlockTypeHelper<CarouselDisplayModel> Cofoundry
+@{
+    Cofoundry.BlockType.UseDescription("Carousel");
+}
+<!------------ Testimonial section Start--------->
+<section class="testimonial">
+    <div class="container">
+        <div class="slider-box">            
+            <div class="owl-slider">
+                <div id="carousel" class="owl-carousel testimonial_carousel">
+                    @for (int i = 0; i < Model.Lists.Count; i++)
+                    {
+                        var item = Model.Lists.ElementAt(i);
+                        <div class="item">
+                            @item.CarouselText
+                            <h3 class="slider-author">@item.CarouselAuthor</h3>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!------------ Testimonial section Ends--------->
+

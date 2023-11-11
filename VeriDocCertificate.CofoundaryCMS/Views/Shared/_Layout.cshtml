@@ -1,0 +1,650 @@
+﻿@using Cofoundry.Domain.Domain.SeoTools.Models;
+@using Microsoft.Extensions.Configuration
+@using Microsoft.AspNetCore.Http;
+@using Cofoundry.Domain.Domain.HeaderFooter.Models;
+@inject ICofoundryHelper Cofoundry
+@inject IConfiguration Configuration
+@{
+    bool PropertyExists(dynamic obj, string name)
+    {
+        if (obj == null) return false;
+        if (obj is IDictionary<string, object> dict)
+        {
+            return dict.ContainsKey(name);
+        }
+        return obj.GetType().GetProperty(name) != null;
+    }
+}
+@{
+    Layout = null;
+    var url = Configuration["SiteUrlRoot"];
+    var title = "VeriDoc Certificates";
+    var metaTitle = "Welcome to the example site";
+    var metadescription = "Welcome to the example site";
+    var metaKeywords = "Welcome to the example site";
+
+    var ogtitle = "Welcome to the example site";
+    var ogdescription = "Welcome to the example site";
+    var ogimage = "";
+    var ogimagetitle = "Welcome to the example site";
+    var cannonicalurl = "";
+
+    string footer_address = null;
+    string footer_phone = null;
+    string footer_email = null;
+    List<HeaderMenuItem> headerMenuItems = new List<HeaderMenuItem>();
+    List<HeaderMenuItem> usefullLinks = new List<HeaderMenuItem>();
+    List<HeaderMenuItem> socialMediaLinks = new List<HeaderMenuItem>();
+    string headerLogoImageUrl = string.Empty;
+    string footerLogoImageUrl = string.Empty;
+    string partnerLogoImageUrl = string.Empty;
+    var metaDataModel = Model as IPageWithMetaDataViewModel;
+
+    string viewPort = null;
+    string copyRight = null;
+    string author = null;
+    string replyTo = null;
+    string robots = null;
+    string contentLanguage = null;
+    string audience = null;
+    string revisitAfter = null;
+    string distribution = null;
+    string altDistribution = null;
+    string publisher = null;
+    string altCopyRight = null;
+    string rel = null;
+    string href = null;
+    string hrefLang = null;
+    string googleSiteVerification = null;
+    string bingSiteVerification = null;
+    string googleAnalytics = null;
+    string googleTagManager = null;
+
+    List<CustomSchemaItem> schemaItems = null;
+    if (metaDataModel != null)
+    {
+        // metadescription = metaDataModel.MetaDescription;
+        // title = metaDataModel.PageTitle;
+        // metaTitle = metaDataModel.MetaTitle;
+        // metaKeywords = metaDataModel.MetaKeywords;
+
+        title = StringHelper.FirstNonEmpty(metaDataModel.PageTitle, title);
+        metaTitle = StringHelper.FirstNonEmpty(metaDataModel.MetaTitle, metaTitle);
+        metadescription = StringHelper.FirstNonEmpty(metaDataModel.MetaDescription, metadescription);
+        metaKeywords = StringHelper.FirstNonEmpty(metaDataModel.MetaKeywords, metaKeywords);
+        //OG params
+        var vm = metaDataModel as IPageViewModel;
+        dynamic dynamicVM = metaDataModel;
+        cannonicalurl = url + dynamicVM.Page.PageRoute.FullUrlPath;
+        var checkcustomentityurl = "";
+        if (dynamicVM != null && PropertyExists(dynamicVM, "CustomEntity"))
+        {
+            checkcustomentityurl = "/" + dynamicVM.CustomEntity.UrlSlug;
+            cannonicalurl = url + dynamicVM.Page.PageRoute.PageDirectory.FullUrlPath + string.Format("{0}", checkcustomentityurl);
+        }
+
+        if (vm != null && vm.Page != null && vm.Page.OpenGraph != null)
+        {
+            ogtitle = StringHelper.FirstNonEmpty(vm.Page.OpenGraph.Title, ogtitle);
+            ogdescription = StringHelper.FirstNonEmpty(vm.Page.OpenGraph.Description, ogdescription);
+            try
+            {
+
+
+                ogimage = StringHelper.FirstNonEmpty(Cofoundry.Routing.ImageAsset(Model.Page.OpenGraph.Image), ogimage);
+                if (!string.IsNullOrEmpty(ogimage))
+                {
+                    ogimagetitle = StringHelper.FirstNonEmpty(vm.Page.OpenGraph.Image.Title, ogimagetitle);
+                }
+            }
+            catch (Exception)
+            {
+
+
+            }
+        }
+        else
+        {
+            if (dynamicVM != null && PropertyExists(dynamicVM, "Page"))
+            {
+              
+             
+                dynamic dynamicPage = dynamicVM.Page;
+                if (dynamicPage != null && PropertyExists(dynamicPage, "OpenGraph"))
+                {
+                    dynamic dynamicOpenGraph = dynamicPage.OpenGraph;
+                    if (dynamicOpenGraph != null)
+                    {
+                        ogtitle = dynamicOpenGraph.Title;
+                        ogdescription = dynamicOpenGraph.Description;
+                        dynamic ogimageRenderDetail = dynamicOpenGraph.Image;
+                        if (ogimageRenderDetail != null)
+                        {
+                            ogimage = Cofoundry.Routing.ImageAsset(ogimageRenderDetail);
+                            ogimagetitle = ogimageRenderDetail.Title;
+                        }
+                    }
+                }
+
+            }
+        }
+     
+
+        /****HEADER FOOTER****/
+        if (metaDataModel.HeaderFooterDetail != null)
+        {
+            footer_address = metaDataModel.HeaderFooterDetail.Address;
+            footer_phone = metaDataModel.HeaderFooterDetail.Phone;
+            footer_email = metaDataModel.HeaderFooterDetail.Email;
+            headerMenuItems = metaDataModel.HeaderFooterDetail.HeaderMenuItems;
+            usefullLinks = metaDataModel.HeaderFooterDetail.UsefulLinks;
+            socialMediaLinks = metaDataModel.HeaderFooterDetail.SocialMediaIcons;
+            headerLogoImageUrl = metaDataModel.HeaderFooterDetail.HeaderLogoImageUrl;
+            footerLogoImageUrl = metaDataModel.HeaderFooterDetail.FooterLogoImageUrl;
+            partnerLogoImageUrl = metaDataModel.HeaderFooterDetail.PartnerLogoImageUrl;
+        }
+        /****SEO TOOLS****/
+        if (metaDataModel.SeoToolsDetails != null)
+        {
+            viewPort = metaDataModel.SeoToolsDetails.ViewPort;
+            copyRight = metaDataModel.SeoToolsDetails.CopyRight;
+            author = metaDataModel.SeoToolsDetails.Author;
+            replyTo = metaDataModel.SeoToolsDetails.ReplyTo;
+            robots = metaDataModel.SeoToolsDetails.Robots;
+            contentLanguage = metaDataModel.SeoToolsDetails.ContentLanguage;
+            audience = metaDataModel.SeoToolsDetails.Audience;
+            revisitAfter = metaDataModel.SeoToolsDetails.RevisitAfter;
+            distribution = metaDataModel.SeoToolsDetails.Distribution;
+            altDistribution = metaDataModel.SeoToolsDetails.AltDistribution;
+            publisher = metaDataModel.SeoToolsDetails.Publisher;
+            altCopyRight = metaDataModel.SeoToolsDetails.AltCopyRight;
+            rel = metaDataModel.SeoToolsDetails.Rel;
+            href = metaDataModel.SeoToolsDetails.Href;
+            googleSiteVerification = metaDataModel.SeoToolsDetails.GoogleSiteVerification;
+            googleTagManager = metaDataModel.SeoToolsDetails.GoogleTagManager;
+            googleAnalytics = metaDataModel.SeoToolsDetails.GoogleAnalytics;
+            bingSiteVerification = metaDataModel.SeoToolsDetails.BingSiteVerification;
+            schemaItems = metaDataModel.SeoToolsDetails.SchemaItems;
+        }
+    }
+
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--G Analytics Site Start-->
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', '@googleAnalytics', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <!--G Analytics Site End-->
+    <!--META properties Start-->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="@viewPort" />
+    <title>@title</title>
+    <meta name="description" content="@metadescription" />
+    <meta name="keywords" content="@metaKeywords" />
+    <meta name="title" content="@metaTitle" />
+    <meta name="copyRight" content="@copyRight" />
+    <meta name="author" content="@author" />
+    <meta name="robots" content="@robots" />
+    <meta name="contentLanguage" content="@contentLanguage" />
+    <meta name="audience" content="@audience" />
+    <meta name="revisitAfter" content="@revisitAfter" />
+    <meta name="distribution" content="@distribution" />
+    <meta name="altDistribution" content="@altDistribution" />
+    <meta name="publisher" content="@publisher" />
+    <meta name="rel" content="@rel" />
+    <meta name="href" content="@href" />
+    <meta name="hrefLang" content="@hrefLang" />
+    <!--META properties End-->
+    <!--Site Verification Start-->
+    <meta name="msvalidate.01" content="@bingSiteVerification" />
+    <meta name="google-site-verification" content="@googleSiteVerification" />
+    <!--Site Verification End-->
+    @RenderSection("Meta", required: false)
+    <!--OG Properties Start-->
+    @{
+        var ogcontent = url + ogimage;
+    }
+    @if (IsSectionDefined("OpenGraph"))
+    {
+        @RenderSection("OpenGraph")
+    }
+    else
+    {
+    <meta property="og:site_name" content='@Configuration["AppName"]' />
+    <meta property="og:title" content="@ogtitle" />
+    <meta property="og:description" content="@ogdescription" />
+    <meta property="og:url" content="@url" />
+    <meta property="og:image" content="@ogcontent" title="@ogimagetitle" />
+    }
+    <!--OG Properties End-->
+    <!--Splash Icons-->
+    <link rel="apple-touch-icon" sizes="57x57" href="~/images/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="~/images/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="~/images/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="~/images/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="~/images/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="~/images/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="~/images/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="~/images/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="~/images/favicon/apple-icon-180x180.png">
+    <!--Favicon Icons-->
+    <link rel="icon" type="image/png" sizes="192x192" href="~/images/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="~/images/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/images/favicon/favicon-16x16.png">
+    <!--manifest PWA-->
+    <link rel="manifest" href="~/manifest.json">
+    <meta name="msapplication-TileColor" content="#24984E">
+    <meta name="msapplication-TileImage" content="~/images/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <!--Css Libraries Start-->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="~/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"/>
+    <!--Site Css Libraries Start-->
+    <link rel="stylesheet" href="~/css/global.css" asp-append-version="true">
+    <link href="~/css/header-footer.css" rel="stylesheet" asp-append-version="true" />    
+    <link href="~/css/modal.css" rel="stylesheet" asp-append-version="true" />        
+    <!--Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <!--Cannonical Start-->
+    <link rel="canonical" href="@cannonicalurl" />
+    @if (IsSectionDefined("Styles"))
+    {
+        @RenderSection("Styles")
+    }
+    <link rel="icon" href="@Cofoundry.Routing.ToAbsolute("~/images/favicon/favicon-32x32.png")" type="image/png" />
+
+    <!--Google Schema Start-->
+    @{
+        string schemaSummary = "";
+        schemaSummary = "\n{\n\t\"@@context\":\"https://schema.org\",\n";
+        schemaSummary += "\t\"@@type\":\"BreadcrumbList\",\n";
+        schemaSummary += "\t\"itemListElement\":\n\t[\n";
+        if (schemaItems != null)
+        {
+            int counter = 0;
+            foreach (var item in schemaItems)
+            {
+                string itemSummary = "";
+                if (counter > 0)
+                {
+                    itemSummary += "\n\t\t,{\n\t\t\"@@type\":\"ListItem\",\n";
+                }
+                else
+                {
+                    itemSummary += "\t\t{\n\t\t\"@@type\":\"ListItem\",\n";
+                }
+                // itemSummary += "\t\t{\n\t\t\"@@type\":\"ListItem\",\n";
+                itemSummary += "\t\t\"position\":" + (counter + 1) + ",\n\t\t";
+                itemSummary += "\"item\":\n\t\t{\n\t\t\"@@id\":\"" + item.Id + "\",\n\t\t\"name\":\"" + item.Name + "\"\n\t\t}\n\t\t}";
+                schemaSummary += itemSummary;
+                counter++;
+            }
+        }
+        schemaSummary += "\n\t]\n}";
+    }
+    @if (schemaItems != null && schemaItems.Count > 0)
+    {
+        <script type="application/ld+json">
+            @Html.Raw(schemaSummary)
+        </script>
+    }
+    <!--Google Schema End-->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T5KKY7G883"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-T5KKY7G883');
+    </script>
+    <!--Google Tag End-->
+</head>
+<body>
+    <!--Google Tag Fallback Start-->
+    <noscript>
+        <iframe src="@string.Format("https://www.googletagmanager.com/ns.html?id={0}", googleTagManager)" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!--Google Tag Fallback End-->
+  
+    <div id="back-to-top1"><i class="fa fa-chevron-up"></i></div>
+   <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="~/">
+                    <img src="@headerLogoImageUrl" alt="VeriDoc Certificates" title="VeriDoc Certificates" class="img-fluid">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse ml-auto" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                        @foreach (var item in headerMenuItems)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="~/@item.Url">@item.Text</a>
+                            </li>
+                        }
+                        <li class="nav-item header-demo-btn">
+                            <button class="btn_1" data-bs-toggle="modal" data-bs-target="#RequestDemoModal">
+                                Request a
+                                Demo
+                            </button>
+                        </li>
+                        <li class="nav-item dropdown profile-dropdown">
+                            <a target="_blank" href="https://my.veridoccertificates.com/" rel="noopener noreferrer" class="login_icon"><img src="~/images/user-icon.svg" alt="VeriDoc Certificates" title="VeriDoc Certificates" /></a>
+
+                        </li>
+                        <li class="nav-item d-lg-none">
+                            <a class="nav-link" target="_blank" href="https://my.veridoccertificates.com/">Login</a>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="mobile-cta d-lg-none">
+            <button type="button" class="btn_1 w-100" data-bs-toggle="modal" data-bs-target="#RequestDemoModal">
+                Request A
+                Demo
+            </button>
+        </div>
+    </header>
+
+    <main class="main">
+        @RenderBody()
+    </main>
+
+    <!-- modal start -->
+    <div class="modal fade request-modal" id="RequestDemoModal" tabindex="-1" aria-labelledby="RequestDemoModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <form action="/" autocomplete="off" enctype="multipart/form-data" id="frm" method="post" name="contact-form">
+                <div class="modal-content">
+                    <div class="modal-header border-0">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body form_field">
+                        <h2 class="fs-lg-18 fs-md-14 text-center" style="color:#036738">
+                            Request a Demo
+                        </h2>
+                        <div class="form-group ultra_group">
+                            <label class="fill-require">Name</label>
+                            <div class="row alignment_res">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input name="firstname" required="" type="text" class="form-control"
+                                           placeholder="First Name">
+                                </div>
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input name="lastname" type="text" class="form-control" placeholder="Last Name">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group  ultra_group">
+                            <label class="fill-require ultra_label">Email</label>
+                            <input type="email" class="form-control" name="email" placeholder="Enter your email"
+                                   required="">
+                        </div>
+                        <div class="form-group ultra_group">
+                            <label>Phone Number</label>
+                            <div class="row alignment_res">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <div class="" id="PhoneCodeDrop">
+                                        <select class="form-control CountyCode1 dial" id="CountyCode1" name="CountyCode1">
+                                        </select>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-sm-6 mb-3 mb-sm-0 ultra_group">
+                                    <input type="number" name="PhoneNo" onkeypress="return onlyNumberKey(event)"
+                                           maxlength="10" class="form-control" placeholder="Enter your phone number">
+                                    <small>
+                                        Please enter the phone number without plus sign ("+") and
+                                        country
+                                        code
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group  ultra_group">
+                            <label>Company Name</label>
+                            <input type="text" name="Companyname" class="form-control" placeholder="Enter your company name">
+                        </div>
+                        <div class="form-group mb-4">
+                            <div class="row alignment_res">
+                                <div class="col-sm-6 mb-3 mb-sm-0 ultra_group">
+                                    <label class="fill-require">Country</label>
+                                    <div class="" id="CountryCodeDrop">
+                                        <select class="form-control CountyCode1 country" id="CountyCode" name="CountyCode">
+                                        </select>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <label class="fill-require">Date and Time</label>
+                                    <div class="has-icon  position-relative">
+                                        <input type="text" id="TimeSlotHidden" tabindex="-1" value="00:00AM" style="pointer-events: none;" class="the_date">
+                                        <i class="fa fa-clock"></i>
+                                        <input type="text" name="dateandTime" readonly class="form-control today_date"
+                                               id="datep" placeholder="Date and Time" />
+
+                                        <div id="datepicker">
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn_2 position-relative w-100 " id="btn_submit_demo">Submit</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <!-- modal end -->
+    <!------------ Footer section Start--------->
+    <footer>
+        <div class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-lg-3 mb-md-5 mb-4 mb-lg-0">
+                        <div class="footer_logo">
+                            <a href="~/"><img src="@footerLogoImageUrl" class="img-fluid" alt="VeriDoc Certificates" title="VeriDoc Certificates"></a>
+                        </div>
+                        <div class="footer_social_icon">
+                            @foreach (var item in socialMediaLinks)
+                            {
+                                <a target="_blank" aria-label="Social" href="@(item.Url.Contains("https://")?item.Url:string.Format("https://{0}", item.Url))" class="me-2">
+                                <span>
+                                   <i class="@item.ClassName" title="@item.Text"></i>
+                                </span>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer_heading usefull_link">
+                            <h3>Useful Links</h3>
+                            <ul>
+                                @foreach (var item in usefullLinks)
+                                {
+                                    <li class="nav-item">
+                                        <a href="~/@item.Url">@item.Text</a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="footer_heading footer-contact">
+                            <h3>Contact Us</h3>
+                            <ul>
+                             @if (footer_address != "none")
+                                {                                
+                                    <li>
+                                    <a href="https://tvdg.io/9AAAAA" target="_blank" class="d-flex text-white">
+                                        <span><i class="fa fa-map-marker"></i></span>
+                                        <p>
+                                            @footer_address
+                                        </p>
+                                    </a>
+                                </li>
+                                }
+                                @if (footer_phone != "none")
+                                {
+                                    <li>
+                                        <a href="tel:@footer_phone" class="d-flex text-white align-items-center">
+                                            <span><i class="fa fa-phone"></i></span>
+                                            <p>
+                                                <img src="~/images/aus.svg" class="img-fluid me-2" alt="VeriDoc Certificates" title="VeriDoc Certificates">
+                                                @footer_phone
+                                            </p>
+                                        </a>
+                                    </li>
+                                }
+                                <li>
+                                    <a href="mailto:@footer_email" class="d-flex text-white align-items-center">
+                                        <span><i class="fa fa-envelope"></i></span>
+                                        <p>
+                                            @footer_email
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-2 text-lg-end mb-md-5 mb-4 mb-lg-0" id="top">
+                        <a href="https://veridocglobal.com/" target="_blank">
+                            <img src="@partnerLogoImageUrl" class="img-fluid veridoc" alt="VeriDoc Global"
+                                 title="VeriDoc Global">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <p class="text-white">© <script>new Date().getFullYear() > document.write(new Date().getFullYear());</script> | ALL RIGHTS RESERVED, VERIDOC GLOBAL PTY LTD</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!------------ Footer section End--------->
+
+    <script src="~/js/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="~/js/bootstrap.bundle.js"></script>
+    <script src="~/js/owl.carousel.min.js"></script>
+    <script src="https://unpkg.com/sweetalert@2.1.2/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="~/js/main.js" asp-append-version="true"></script>
+    <script src="~/js/demo.js" asp-append-version="true"></script>
+    <script type="module">
+        import { Workbox } from 'https://storage.googleapis.com/workbox-cdn/releases/6.1.5/workbox-window.prod.mjs';
+
+        if ('serviceWorker' in navigator) {
+            const wb = new Workbox('/serviceworker.js');
+
+            wb.register();
+        }
+    </script>
+    <script>
+        jQuery("#carousel").owlCarousel({
+            autoplay: true,
+            loop: true,
+            margin: 20,
+            responsiveClass: true,
+            autoHeight: false,
+            autoplayTimeout: 10000,
+            smartSpeed: 1000,
+            nav: false,
+            responsive: {
+                0: {
+                    items: 1
+                },
+
+                600: {
+                    items: 1
+                },
+
+                1024: {
+                    items: 1
+                },
+
+                1366: {
+                    items: 1
+                }
+            }
+        });
+
+        //pricing start
+        $(function () {
+            $("#toggle-check").click(function () {
+                if ($(this).is(":checked")) {
+                    $(".box_1_price").hide();
+                    $(".box_2_price").show();
+                    $(".box-monthly").hide();
+                    $(".box-yearly").show();
+                    $(".annual").css("color", "#25984E");
+                    $(".monthly").css("color", "#000");
+                } else {
+                    $(".box_1_price").show();
+                    $(".box_2_price").hide();
+                    $(".box-monthly").show();
+                    $(".box-yearly").hide();
+                    $(".annual").css("color", "#000");
+                    $(".monthly").css("color", "#25984E");
+                }
+            });
+            window.addEventListener('beforeunload', function (event) {
+            }, false);
+        });
+        //pricing end
+    </script>
+    <script>
+
+        $('br').each(function () {
+            $(this).remove();
+        })
+    </script>
+    <script>
+        var apiURL = '@Configuration["ApiUrl"]';
+
+    </script>
+
+    @if (IsSectionDefined("FooterScripts"))
+    {
+        @RenderSection("FooterScripts")
+    }
+</body>
+</html>

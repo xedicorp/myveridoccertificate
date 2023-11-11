@@ -1,0 +1,52 @@
+﻿@using DeviceDetectorNET;
+ 
+@model FreeTrialBannerDisplayModel
+@inject ICofoundryBlockTypeHelper<FreeTrialBannerDisplayModel> Cofoundry
+ 
+
+@{
+    Cofoundry.BlockType.UseDescription("Free Trial Banner with optional citation and title");
+}
+
+@if (Model != null)
+{
+    <!------------Hero section start--------->
+    <section class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                   <div class="content">
+                        @Model.BannerDescription
+                    </div>  
+                    <div class="free_trail">
+                        <form method="post" asp-action="RequestTrial" id="freetrialform" autocomplete="off" asp-controller="Account">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="position-relative">
+                                        <input type="text" class="form-control" name="FreeTrialEmail" placeholder="Enter your email">
+                                        <span class="input-cross" id="errorIcon" style="display:none;"><i class="fa-solid fa-circle-check"></i></span>
+                                        <span id="errorInvalid" style="display:none;color:#e23c39;">Please enter valid email</span>
+                                        <span id="errorExist" style="display:none;color:#e23c39;">This email already in use.</span>
+                                    </div>                                    
+                                    <small>*No credit card required</small>
+                                </div>
+                                <div class="col-lg-4 ps-0">
+                                    <button type="button" class="btn_2" id="freetrialsubmit">Start Your Free Trial</button>
+                                </div>
+                            </div>
+                        </form>
+                       
+                    </div>
+                </div>
+              
+                <div class="col-lg-6 text-center">
+                    <img src="@Model.BannerImageID" class="img-fluid" alt="VeriDoc Certificates" title="VeriDoc Certificates">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!------------Hero section Ends--------->
+    @section FooterScripts{
+       
+    }
+}

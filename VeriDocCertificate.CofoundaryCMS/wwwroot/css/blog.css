@@ -1,0 +1,232 @@
+/*----Blog Page css start-----*/
+.blog-slide-sec {
+    background: linear-gradient(#0E3553 75%, #FFFF 25%);
+}
+.blog-slide-sec h2 {
+    color: #fff;
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 70px;
+}
+.blog-slide {
+    border-radius: 10px;
+    /* overflow: hidden; */
+    max-width: 1000px;
+    background-color: #fff;
+    margin: auto;
+}
+#blog-slider {
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+    border-radius: 10px;
+}
+.blog-slide-sec .owl-carousel.owl-drag .owl-item {
+    overflow: hidden;
+}
+.blog-slide-text {
+    padding: 35px;
+    text-align: initial;
+}
+.blog-slide-text h3 {
+    margin-bottom: 30px;
+    font-size: 30px;
+    font-weight: 900;
+    font-family: 'Roboto', sans-serif;
+
+}
+.blog-slide-text p {
+    margin-bottom: 30px;
+    color: #58595A;
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.blog-slide-sec .owl-theme .owl-nav {
+    width: 100%;
+    top: 40%;
+    position: absolute;
+    color: #0D793B;
+    font-size: 30px;
+    margin-top: 10px;
+}
+.blog-slide-sec .owl-theme .owl-nav .owl-prev {
+    left: -50px;
+    position: absolute;
+}
+#blog-slider .owl-nav i {
+    color: #FFFF;
+    font-size: 35px;
+}
+.blog-slide-sec .owl-theme .owl-nav .owl-next {
+    right: -50px;
+    position: absolute;
+}
+.blog-slide-sec .owl-theme .owl-dots {
+    width: 100%;
+    position: absolute;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.blog-slide-sec .owl-theme .owl-dots .owl-dot span {
+    transition: 0.5s linear;
+}
+.blog-slide-sec .owl-theme .owl-dots .owl-dot.active span {
+    width: 16px;
+    height: 16px;
+}
+.blog-slide-sec .owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span {
+    background: #0D793B;
+}
+.blog-tab {
+    padding: 100px 0px 50px 0px;
+}
+.tab-navigation {
+    border-bottom: 1px solid #CCCCCC;
+    margin-bottom: 50px;
+    padding-bottom: 8px;
+}
+.blog-tab .tab-navigation ul {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin-left: 10px;
+}
+.blog-tab .tab-navigation li {
+    margin-right: 30px;
+}
+.blog-tab .btn-tab.active {
+    text-decoration: none;
+    color: #24984E;
+}
+.blog-tab .tab-navigation li a {
+    text-decoration: none;
+    color: #000;
+    font-size: 20px;
+    cursor: pointer;
+    font-weight: 500;
+}
+.blog-tab .tab-navigation li:last-of-type {
+    margin-right: 0;
+}
+.blog-tab .card {
+    box-shadow: 0 20px 30px rgb(0 24 73 / 10%);
+    margin: 35px 0;
+    border-radius: 10px;
+    border: none;
+}
+.blog-tab .card-body {
+    height: auto;
+    padding: 15px 20px;
+}
+.blog-tab .card-body a {
+    color: #2C2C2C;
+}
+.blog-tab .card-title {
+    font-size: 24px;
+    margin: 25px 0px;
+    font-family: 'Roboto', sans-serif;
+        font-weight: 900;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    min-height: 60px;
+}
+.blog-tab .card-text {
+    font-size: 20px;
+    margin-bottom: 30px;
+    color: #58595A;
+    line-height: 1.5;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+}
+
+.blog-slide img {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.blog-slide-sec .owl-theme .owl-nav [class*=owl-]:hover {
+    background: none;
+}
+
+@media (min-width: 1440px) {
+    .blog-tab .card-text {
+        height: 120px;
+    }
+}
+
+    @media (min-width: 992px) {
+        .blog-slide-text h3 {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+    }
+
+    @media (max-width: 1199px) {
+        .blog-slide-text h3 {
+            font-size: 30px;
+        }
+
+        .blog-tab .card-text {
+            font-size: 15px;
+        }
+    }
+
+        @media (max-width: 991px) {
+            .blog-slide-text h3 {
+                font-size: 18px;
+                color: #000;
+                margin-bottom: 15px;
+            }
+
+            .blog-slide-sec {
+                overflow: hidden;
+                padding-bottom: 60px;
+            }
+
+            .blog-slide-text p {
+                min-height: 58px;
+                font-size: 16px;
+                color: #000;
+            }
+
+            .blog-slide img {
+                border-top-right-radius: 0px;
+                border-bottom-left-radius: 10px;
+            }
+
+            .blog-tab {
+                padding: 30px 0px 30px 0px;
+            }
+
+            .tab-navigation {
+                overflow: auto;
+            }
+
+            .blog-tab .tab-navigation ul {
+                flex-wrap: nowrap;
+                width: max-content;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .blog-tab .card-title {
+                min-height: auto;
+            }
+        }
+
+        /*----Blog Page css End-----*/
+

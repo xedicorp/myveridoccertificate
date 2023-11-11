@@ -1,0 +1,79 @@
+﻿@model dynamic;
+@inject ICofoundryHelper Cofoundry
+@{
+    Layout = null;
+    var countIteration = 0;
+}
+
+ 
+@{
+    List<FeatureCategorySummary> featureCategorySummaries = (List<FeatureCategorySummary>)Model.FeatureCategories;
+    foreach (var CatItem in featureCategorySummaries.OrderBy(p => p.SortOrder).ToList())
+{
+    <div class="row @(countIteration > 0 ? "mt-4" : "")">
+        <div class="col-lg-12">
+            <div class="feature-heading">
+                <h2>@CatItem.Title</h2>
+            </div>
+        </div>
+            @{
+                List<FeaturePostSummary> featurePostSummaries = new List<FeaturePostSummary>();
+                foreach (FeaturePostSummary item in Model.FeaturePostModel.Items as List<FeaturePostSummary>)
+                {
+                    if (item.Categorylist == CatItem.CategoryId)
+                    {
+                        featurePostSummaries.Add(item);
+                    }
+                }
+            }        
+        @foreach (var PostItem in featurePostSummaries)
+        {
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-box">
+                    <div class="feature-box-details">
+                        <a class="" href="@PostItem.FullPath">
+                            <h4>@PostItem.Title</h4>
+                            <img src="@Cofoundry.Routing.DocumentAsset(PostItem.ThumbnailIcon)" alt="VeriDoc Certificates" title="VeriDoc Certificates" style="max-width:20px;filter: invert(45%) sepia(95%) saturate(389%) hue-rotate(89deg) brightness(87%) contrast(84%);" class="img-fluid">
+                        </a>
+                    </div>
+                    @if (PostItem.MeidaLookup.ToString() == "Image")
+                    {
+                        <a href="@PostItem.FullPath" class="mediaanchor">
+                            <img src="@Cofoundry.Routing.DocumentAsset(PostItem.ThumbnailImageAsset)" class="img-fluid" alt="VeriDoc Certificates" title="VeriDoc Certificates">
+                        </a>
+                    }
+                    else if (PostItem.MeidaLookup.ToString() == "Video")
+                    {
+                        @if (PostItem.VideoLookup.ToString() == "Youtube")
+                        {
+                            <a href="@PostItem.FullPath" class="mediaanchor">
+                                <img src='@string.Format("https://img.youtube.com/vi/{0}/maxresdefault.jpg", PostItem.ThumbnailIframeId)' class="img-fluid" alt="VeriDoc Certificates" title="VeriDoc Certificates">
+                                <img class="playIcon" src="~/images/youtube-icon-2.png" class="img-fluid" alt="VeriDoc Certificates" title="VeriDoc Certificates">
+                            </a>
+                        }
+                        else if (PostItem.VideoLookup.ToString() == "Vimeo")
+                        {
+                            <a href="@PostItem.FullPath" class="mediaanchor">
+                                <img src='@string.Format("http://vumbnail.com/{0}.jpg", PostItem.ThumbnailIframeId)' class="img-fluid" alt="VeriDoc Certificates" title="VeriDoc Certificates">
+                                <img class="playIcon" src="~/images/vimeo-icon-2.jpg" class="img-fluid" alt="VeriDoc Certificates" title="VeriDoc Certificates">
+                            </a>
+                        }
+
+
+                    }
+                    <p class="mb-3">
+                        @PostItem.ShortDescription
+                    </p>
+                    <a href="@PostItem.FullPath" class="the_green">READ MORE <span><i class="fa fa-angle-right"></i></span></a>
+
+                </div>
+            </div>
+        }
+        
+        @{
+            featurePostSummaries.Clear();
+        }
+    </div>
+    countIteration++;
+}
+}

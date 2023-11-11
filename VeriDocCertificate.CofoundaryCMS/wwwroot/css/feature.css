@@ -1,0 +1,109 @@
+
+/*----Feature Page css start-----*/
+
+.feature-top-banner {
+    background-color: #F4F7EB;
+    padding: 100px 0px;
+    text-align: center;
+}
+.feature-top-banner h2 {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 35px;
+    color: #000000;
+}
+.feature-top-banner p {
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 0;
+    max-width: 906px;
+    width: auto;
+    margin: auto;
+}
+.feature-top-banner .main-heading-style-one p span a {
+    color: #29abe2;
+}
+.feature-heading {
+    margin-bottom: 30px;
+    border-bottom: 3px solid #E6E6E6;
+    margin-top: 20px;
+}
+    .feature-heading h2 {
+        position: relative;
+        width: fit-content;
+        color: #24984E;
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+.feature-box {
+    margin-bottom: 30px;
+}
+.feature-box-details a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.feature-box h4 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #0e3553;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+/*.feature-box img{
+    max-width: 20px;
+    filter: invert(45%) sepia(95%) saturate(389%) hue-rotate(89deg) brightness(87%) contrast(84%);
+}*/
+.feature-box a.mediaanchor {
+    position: relative;
+}
+.feature-box a.mediaanchor img:first-child {
+    max-height: none;
+    width: 100%;
+}
+.feature-box img.playIcon {
+    position: absolute;
+    max-width: 75px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: 50%;
+}
+.feature-box p {
+    font-size: 16px;
+    color: #707070;
+    line-height: 25px;
+    margin-top: 25px;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+
+@media (max-width:991px){
+    .feature-box-details {
+        margin: 10px 0 15px;
+    }
+    .feature-top-banner {        
+        padding: 50px 0px;        
+    }
+    .feature-heading h2 {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+    .feature-top-banner p {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 767px){
+    .feature-box a.mediaanchor img:first-child {
+        max-height: initial;
+    }
+}
+
+/*----Feature Page css End-----*/

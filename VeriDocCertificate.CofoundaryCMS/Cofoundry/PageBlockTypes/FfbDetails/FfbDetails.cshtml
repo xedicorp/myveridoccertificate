@@ -1,0 +1,44 @@
+﻿@model FfbDetailsDisplayModel
+@inject ICofoundryBlockTypeHelper<FfbDetailsDisplayModel> Cofoundry
+
+@{
+    Cofoundry.BlockType.UseDescription("Free Trial Banner with optional citation and title");
+}
+
+@if (Model != null)
+{
+
+
+
+    <div class="col-lg-12 mx-auto text-center">
+
+        @if (Model.MeidaLookup.ToString() == "Image")
+        {
+            <img src="@Model.FfbImageID" class="img-fluid" alt="VeriDoc Certificates" title="VeriDoc Certificates">
+        }
+        else if (Model.MeidaLookup.ToString() == "Video")
+        {
+            @if (Model.VideoLookup.ToString() == "Youtube")
+            {
+                var YoutubeStr = "https://www.youtube.com/embed/" + Model.FfbIframe;
+                <div class="iframe-container">
+                    <iframe class="responsive-iframe" src="@YoutubeStr?rel=0" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+
+            }
+            else if (Model.VideoLookup.ToString() == "Vimeo")
+            {
+                var VimeoeStr = "https://player.vimeo.com/video/" + Model.FfbIframe;
+                <div class="iframe-container">
+                    <iframe class="responsive-iframe" src="@VimeoeStr?rel=0" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+            }
+
+        }
+    </div>
+
+    <div class="col-lg-12  mx-auto">
+        @Model.FfbDescription
+
+    </div>
+}

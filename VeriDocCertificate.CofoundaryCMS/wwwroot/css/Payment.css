@@ -1,0 +1,520 @@
+﻿@import url(https://square-fonts-production-f.squarecdn.com/square-sans.min.css);
+
+@media (min-width:1800px) {
+    .container {
+        max-width: 1650px;
+    }
+}
+
+body, button, html {
+    font-family: "Roboto", sans-serif;
+}
+section.payment_section {
+    min-height: calc(100vh - 582.8px);
+    display: flex;
+    align-items: center;
+    padding: 40px 0 20px;
+}
+#ach-message, #payment-flow-message {
+    margin-top: 11px;
+    margin-bottom: 11px
+}
+
+html, input {
+    font-size: 16px
+}
+
+html {
+    color: #151c1f;
+    line-height: 24px;
+    -webkit-font-smoothing: antialiased
+}
+
+#fast-checkout .border, body {
+    color: rgba(0,0,0,.55);
+    width: 100%
+}
+
+body {
+    height: 100%;
+    margin: 0;
+    background: #fff
+}
+
+h1 {
+    text-align: center
+}
+
+form {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto
+}
+
+button {
+    /*margin: 0 auto 20px;*/
+    background-color: #3374ff;
+    padding: 12px 16px;
+    color: #fff;
+    border-radius: 0;
+    border: none
+}
+
+    button:focus {
+        outline: 0
+    }
+
+    button:hover {
+        cursor: pointer;
+        filter: brightness(90%);
+        -webkit-transition: 30ms ease-in-out;
+        -moz-transition: 30ms ease-in-out;
+        -ms-transition: 30ms ease-in-out;
+        -o-transition: 30ms ease-in-out;
+        transition: 30ms ease-in-out
+    }
+
+input:focus {
+    border: none;
+    outline: 0
+}
+
+input {
+    width: 100%;
+    height: 48px;
+    padding-left: 16px;
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+    box-sizing: border-box
+}
+
+.payment-form {
+    margin: 0px auto;
+    display: flex;
+    justify-content: center;
+    border-radius: 0;
+    align-items: center
+}
+
+@media (max-width: 1050px) {
+    .payment-form {
+        border-radius: 0;
+        /* margin: 20px; */
+        /* height: 110vh; */
+        max-width: 100%
+    }
+}
+
+@media (max-width: 600px) {
+    .payment-form {
+        padding: 30px;
+        box-sizing: border-box
+    }
+}
+
+#apple-pay-button {
+    height: 48px;
+    width: 100%;
+    display: inline-block;
+    -webkit-appearance: -apple-pay-button;
+    -apple-pay-button-type: plain;
+    -apple-pay-button-style: black
+}
+
+#fast-checkout {
+    background: #fafafa;
+    color: #000
+}
+
+    #fast-checkout input {
+        border-radius: 0;
+        position: relative;
+        margin-bottom: 16px;
+        border-radius:5px;
+    }
+
+    #fast-checkout .wrapper {
+        /*max-width: 450px;*/
+        position: relative;
+        padding: 0;
+    }
+
+    #fast-checkout button {
+        width: 100%;
+        background: #24984E;
+        border-radius: 5px;
+    }
+        #fast-checkout button#apple-pay-button {
+            background: #fff;
+            color: #000;
+            border: 1px solid rgba(0,0,0,.1);
+            justify-content: center;
+            line-height: 18px;
+            padding: 13px
+        }
+
+    #fast-checkout .border {
+        background: rgba(0,0,0,.1);
+        height: 1px;
+        margin: 30px 0;
+        font-size: 12px;
+        line-height: 20px;
+        text-transform: uppercase;
+        position: relative
+    }
+
+        #fast-checkout .border span {
+            position: absolute;
+            top: -10px;
+            background: #fafafa;
+            padding: 0 10px;
+            left: calc(50% - 1em - 5px)
+        }
+
+#ach-wrapper {
+    display: none
+}
+
+    #ach-wrapper input:first-of-type {
+        margin-bottom: 10px
+    }
+
+#ach-message {
+    width: 100%;
+    font-size: 14px;
+    display: inline-block;
+    color: #bf0020
+}
+
+    #ach-message:empty:before, #message:empty:before {
+        content: "\200b"
+    }
+
+#payment-flow-message {
+    width: 100%;
+    height: auto;
+    display: block
+}
+
+    #payment-flow-message.error {
+        color: #bf0020;
+        font-size: 12px;
+        line-height: 14px
+    }
+
+    #payment-flow-message.success {
+        color: #3374ff
+    }
+
+.card_image_payment img {
+    width: auto;
+    height: 30px;
+    margin-right: 20px
+}
+
+.payment_heading {
+    margin-bottom: 20px
+}
+
+    .payment_heading p {
+        font-size: 16px;
+        color: #a5a5a5
+    }
+
+    .payment_heading h1 {
+        font-size: 24px;
+        text-align: left;
+        margin-top: 25px;
+        color: #144167;
+        font-weight: 700
+    }
+
+.payment-form {
+    width: 100%;
+    max-width: 100%;
+    border: 1px solid #ccc;
+    padding: 45px 25px 25px;
+}
+#fast-checkout .wrapper label {
+    font-size: 16px;
+    color: #536777;
+    margin-bottom: 8px;
+}
+
+section.payment_section input:focus {
+    border: 1px solid #24984e !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+}
+.sq-focus .sq-card-iframe-container:before {
+    border-color: #144167 !important
+}
+
+a.bt-pr-page i {
+    margin-right: 15px
+}
+
+a.bt-pr-page {
+    color: #a7a7a7;
+    font-size: 16px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.back-to-home a {
+    color: #a7a7a7;
+    text-decoration: none;
+    display: flex;
+    margin-top: 20px;
+    align-items: center;
+    background: transparent;
+    border: 0;
+}
+    .back-to-home a:hover {
+        color: #a7a7a7 !important;
+    }
+    /*@media (max-width:991px){
+    .payment_img {
+        display:none;
+    }
+}*/
+    .pay-link-header {
+        font-size: 14px;
+        padding: 20px;
+        text-align: center;
+        font-weight: 500;
+        box-shadow: 0 1px 1px rgb(0 0 0 / 10%);
+        background: #fff;
+        margin-bottom: 1px;
+    }
+
+.right-col {
+    width: 100%;
+    max-width: 502px;
+}
+
+.col-card {
+    box-sizing: border-box;
+    box-shadow: 0 1px 1px rgb(0 0 0 / 10%);
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.card-header {
+    text-align: center;
+    padding: 24px 32px 0;
+    background: #fff;
+    border: none;
+}
+
+.animatedcheck {
+    margin: 0 0 40px;
+}
+
+    .animatedcheck svg {
+        width: 100px;
+        display: block;
+        margin: 40px auto 0;
+    }
+
+.soc-product-title {
+    font-size: 22px;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.pay-page .pay-page-content .form-section.successform-section {
+    min-height: 260px;
+}
+
+hr {
+    height: 1px;
+    border: 0;
+    width: 100%;
+    background-color: #e6e6e6;
+}
+
+.pay-page .pay-page-content p.pay-link-description.description.successparagraph {
+    margin: 30px 0 60px !important;
+    margin-bottom: 60px !important;
+    text-align: center !important;
+}
+
+.form-button a {
+    display: block;
+    background: #24984E;
+    border-radius: 8px;
+    border-width: 0;
+    height: 56px;
+    width: 100%;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 100px 80px rgb(0 0 0 / 7%),0 50.0488px 40.0391px rgb(0 0 0 / 5%),0 30.1471px 24.1177px rgb(0 0 0 / 5%),0 19.3198px 15.4559px rgb(0 0 0 / 4%),0 12.5216px 10.0172px rgb(0 0 0 / 4%),0 7.88218px 6.30574px rgb(0 0 0 / 3%),0 4.5288px 3.62304px rgb(0 0 0 / 2%),0 1.99324px 1.59459px rgb(0 0 0 / 2%);
+    line-height: 53px;
+    text-decoration: none;
+}
+
+    .form-button a i {
+        opacity: .7;
+        font-size: 27px;
+        position: relative;
+        top: 2px;
+    }
+
+footer.squarefooter {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 100px;
+}
+
+    footer.squarefooter .sqlogo {
+        display: block;
+        width: 24px;
+        height: 24px;
+        fill: #71767b;
+        margin: 0 auto 8px;
+    }
+
+    footer.squarefooter p {
+        display: block;
+        font-size: 14px;
+        line-height: 24px;
+        height: 24px;
+        margin: 0;
+        color: #71767b;
+    }
+
+@media (min-width: 502px) {
+    .main-area {
+        margin-bottom: 30px;
+    }
+
+    .home-22 {
+        background: #f5f6f7;
+    }
+
+    .pay-link-header {
+        font-size: 26px;
+        padding: 28px;
+        margin-bottom: 44px;
+    }
+
+    .pay-page {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+    }
+
+    .card-header {
+        text-align: center;
+        padding: 24px 32px 0;
+    }
+
+    .pay-page .pay-page-content .form-section {
+        padding: 0 32px 32px;
+    }
+
+    .form-button {
+        position: static;
+        padding: 0;
+        width: initial;
+    }
+}
+
+@media (max-width: 502px) {
+    .pay-page {
+        margin: 15px;
+    }
+
+    .main-area .form-button a {
+        width: 90%;
+        margin: 0 auto;
+    }
+}
+
+.footer-copyright {
+    padding: 10px 0px;
+    background-color: #000000;
+    margin-bottom:0!important;
+}
+.footer_heading ul li a, .footer_heading ul li a p {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+}
+.footer_logo {
+    margin-bottom: 30px;
+}
+.usefull_link {
+    max-width: 240px;
+    margin-left: auto;
+}
+.footer-contact {
+    max-width: 375px;
+    margin: auto;
+}
+.veridoc {
+    max-width: 180px;
+}
+.footer_heading span i.fa-map-marker {
+    margin-left: 5px;
+}
+.footer_heading span i {
+    font-size: 24px;
+    margin-right: 20px;
+    margin-top: 6px;
+    min-width: 20px;
+}
+.swal-button {
+    background-color: #24984E;
+}
+.swal-button:not([disabled]):hover {
+    background-color: #24984E;
+}
+.swal-footer {
+    text-align: center;
+}
+
+@media (max-width: 991px){
+    .payment_img {
+        display: none;
+    }
+    section.payment_section {
+        min-height: auto;
+    }
+    .footer_heading {
+        margin-bottom: 35px;
+    }
+    .usefull_link {
+        max-width: initial;
+    }
+    .footer-contact {
+        max-width: 100%;
+        margin-right: auto;
+    }
+    .footer_heading span i {
+        width: 20px;
+    }
+}
+
+button.swal2-confirm.swal2-styled {
+    background-color: #24984e;
+    border: 1px solid #24984e;
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 0 !important;
+    min-width: 150px;
+    min-height: 45px;
+    max-width: 100%;
+}

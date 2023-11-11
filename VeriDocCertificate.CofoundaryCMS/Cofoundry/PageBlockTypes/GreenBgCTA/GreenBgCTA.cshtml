@@ -1,0 +1,40 @@
+﻿@model GreenBgCTADisplayModel
+@inject ICofoundryBlockTypeHelper<GreenBgCTADisplayModel> Cofoundry
+
+@{
+    Cofoundry.BlockType.UseDescription("Free Trial Banner with optional citation and title");
+}
+
+@if (Model != null)
+{
+
+    <!------------GreenBG section start--------->
+    <section class="cta">
+        @if(Model.LinkBtn == null)
+        {
+            <div class="container">
+                <h2 class="title text-white text-center">
+                    @Model.Title
+                </h2>
+            </div>
+        }
+        else{
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-9 mb-4 mb-lg-0">
+                        <h3 class="title text-white">@Model.Title</h3>
+                    </div>
+                    <div class="col-md-3 text-center text-lg-end">
+                        <a href="~/@Model.LinkBtn" class="btn_1">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        }
+        
+         
+    </section>
+  
+    <!------------GreenBG section Ends--------->
+
+
+}

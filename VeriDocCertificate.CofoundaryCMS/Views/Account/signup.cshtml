@@ -1,0 +1,62 @@
+﻿@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@section Styles{
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        header,footer{
+            display:none;
+        }
+        body{
+            overflow:hidden;
+        }
+    </style>
+    <link rel="stylesheet" href="~/css/trynow.css">
+}
+    <section class="password-varification p-0">
+    <img src="@Configuration["WebApplicationImage"]" alt="VeriDoc Certificates" title="VeriDoc Certificates" class="bg-img" />
+        <div class="password-setup" id="PassSetup">
+            <a href="~/" style="color: #ccc; font-size: 24px;position: absolute;right:15px;top: 6px;"><i class="fa fa-times"></i></a>
+            <div class="password-title text-center">Sign up for a free trial</div>
+            <h6 class="create-msg text-center">Already have an account? <a href="https://my.veridoccertificates.com/" target="_blank">Log in</a></h6>
+            <form class="mt-4"  method="post" enctype="multipart/form-data">               
+                <div class="form-group">
+                    <input type="text" style="background:#eeee;pointer-events:none;" name="Email" id="email_id" class="form-control" value="@ViewBag.Email" required="">
+                </div>
+                <div class="form-group password_validate">
+                    <input type="password"  name="Password" id="pass_log_id" class="form-control" placeholder="Enter Your Password" autofocus required="">
+                <i class="toggle-password fa fa-eye-slash" style="cursor:pointer;"></i>
+                    <span class="red charlength_validate">
+                        Password must be minimum of 8 characters
+                    </span>
+                    <span class="red capital_validate">
+                        Password must include at-least one uppercase letter e.g.
+                        ABC
+                    </span>
+                    <span class="red smallcase_validate">
+                        Password must include at-least one lowercase letter e.g. abc
+                    </span>
+                    <span class="red numeric_validate">Password must include at-least one number e.g. 123 </span>
+                    <span class="red special_validate">Password must include at-least one symbol e.g. (@@!#$?)</span>
+                </div>
+
+            <button class="btn_2" disabled id="startFreeTrial" type="submit">Start your free trial</button>
+                <p class="mt-2 text-center">No credit card required</p>
+                <div class="login-sso">
+                <p>By clicking <b><a href="javascript:void(0)" target="_blank" style="pointer-events: none;">Start your free trial</a></b>, you agree to VeriDoc Certificates <a href="~/privacy-policy" target="_blank">Privacy Policy</a> and <a href="~/terms-and-condition" target="_blank">Terms and Conditions</a>.</p>
+                </div>
+            </form>
+        </div>
+        <div class="verify" id="emailsentview" style="display:none">
+            <a href="~/" style="color: #ccc; font-size: 24px;position: absolute;right:15px;top: 6px;"><i class="fa fa-times"></i></a>
+            <h1>Confirm your mail address</h1>
+            <p>We've sent a confirmation email to you at:</p>
+            <span id="usermailsec">@ViewBag.Email</span>
+        </div>
+    </section>
+    <!--Show after Submit-->
+
+
+@section FooterScripts{
+   
+    <script src="~/js/freetrialsignupajax.js"></script>
+}

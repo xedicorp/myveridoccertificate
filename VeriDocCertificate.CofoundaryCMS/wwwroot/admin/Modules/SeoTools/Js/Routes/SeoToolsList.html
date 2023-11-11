@@ -1,0 +1,79 @@
+﻿ <cms-page-header cms-title="Manage" cms-parent-title="SEO Tools">
+     </cms-page-header>
+<cms-form cms-name="mainForm" ng-submit="vm.save()">
+    <cms-page-actions>       
+    <cms-button-submit cms-text="Save" ng-disabled="vm.mainForm.$invalid"></cms-button-submit>          
+    <cms-button cms-text="Cancel" ng-click="vm.cancel()"></cms-button>    </cms-page-actions>  
+    <cms-page-body cms-content-type="form">
+        <cms-form-status></cms-form-status>        <!--MAIN-->
+
+        <cms-form-section cms-title="Main">
+
+            <div class="control-group">
+                <cms-field>
+                    <div class="controls">
+
+                        <cms-form-field-text cms-title="ViewPort" cms-model="vm.command.viewPort" cms-description="Address" max-length="130" required></cms-form-field-text>
+                        <cms-form-field-text cms-title="Copyright" cms-model="vm.command.copyRight" cms-description="Email" max-length="130" required></cms-form-field-text>
+                        <cms-form-field-text cms-title="Author" cms-model="vm.command.author" cms-description="Phome" max-length="130" required></cms-form-field-text>
+                        <cms-form-field-text cms-title="reply-to" cms-model="vm.command.replyTo" cms-description="Address" max-length="130" required></cms-form-field-text>
+                        <cms-form-field-text cms-title="robots" cms-model="vm.command.robots" cms-description="Email" max-length="130" required></cms-form-field-text>
+                        <cms-form-field-text cms-title="content-language" cms-model="vm.command.contentLanguage" cms-description="Phome" max-length="130" required></cms-form-field-text>
+                        <cms-form-field-text cms-title="audience" cms-model="vm.command.audience" cms-description="Address" max-length="130" required></cms-form-field-text>
+                        <cms-form-field-text cms-title="revisit-after" cms-model="vm.command.revisitAfter" cms-description="Email" max-length="130" required></cms-form-field-text>
+                        <cms-form-field-text cms-title="distribution" cms-model="vm.command.distribution" cms-description="Phome" max-length="130" required></cms-form-field-text>
+
+
+
+                        <cms-form-field-text cms-title="Alternate  distribution" cms-model="vm.command.altDistribution" cms-description="Address" max-length="130" required></cms-form-field-text>
+                        <cms-form-field-text cms-title="publisher" cms-model="vm.command.publisher" cms-description="Email" max-length="130" required></cms-form-field-text>
+                        <cms-form-field-text cms-title="Google Tag Manager" cms-model="vm.command.googleTagManager" cms-description="text" max-length="130" required></cms-form-field-text>
+                        <cms-form-field-text cms-title="Google Analytics" cms-model="vm.command.googleAnalytics" cms-description="text" max-length="130" required></cms-form-field-text>
+                        <cms-form-field-text cms-title="Google Site Verification" cms-model="vm.command.googleSiteVerification" cms-description="text" max-length="130" required></cms-form-field-text>
+                        <cms-form-field-text cms-title="Bing Site Verification" cms-model="vm.command.bingSiteVerification" cms-description="text" max-length="130" required></cms-form-field-text>
+
+                    </div>
+                </cms-field>
+            </div>
+        </cms-form-section>
+        <cms-form-section cms-title="Alternate language">
+
+            <div class="control-group">
+                <cms-form-field-text cms-title="rel" cms-model="vm.command.rel" cms-description="Address" max-length="130" required></cms-form-field-text>
+                <cms-form-field-text cms-title="href" cms-model="vm.command.href" cms-description="Email" max-length="130" required></cms-form-field-text>
+                <cms-form-field-text cms-title="hreflang" cms-model="vm.command.hrefLang" cms-description="Phome" max-length="130" required></cms-form-field-text>
+            </div>
+        </cms-form-section>
+        <cms-form-section cms-title="Custom Schemas">
+            <div class="control-group">
+                <cms-field>
+                     <div class="controls">
+                        <input type="hidden" id="{{vm.modelName}}" name="{{vm.modelName}}" ng-model="vm.model" ng-change="vm.onChange()" /> 
+                        <cms-table-container> 
+                         <table> <thead> 
+                             <tr> 
+                             <th>ID</th> <th>Name</th>    
+                             <th cms-table-column-actions>Actions</th> 
+                                 </tr> </thead>
+                            <tbody> 
+                             <tr ng-if="!  vm.command.gridData.length">
+                                <td colspan="100" class="empty">None</td> </tr> 
+                             <tr ng-repeat="entity in   vm.command.gridData  track by $index">
+                                 <td>{{entity.model.id}}</td>
+                                 <td>{{entity.model.name}}</td>
+                                 <td cms-table-column-actions>
+                                     <cms-button-icon cms-title="Remove" cms-icon="trash-o" ng-click="vm.remove(entity, $index)"> </cms-button-icon>
+                                 </td>
+                             </tr>
+                            
+                            </tbody> 
+                             </table> <cms-table-actions> <a href="" class="btn-icon" title="Add" cms-icon="plus-circle" 
+                                                             ng-click="vm.showPicker()"> <i class="fa fa-plus-circle"></i> 
+                                   </a> </cms-table-actions> </cms-table-container> <cms-form-field-validation-summary></cms-form-field-validation-summary>
+                    </div>
+                </cms-field> <p class="help-inline" ng-if="vm.description"> <small>{{vm.description}}</small> </p>
+            </div>
+            </cms-form-section>
+
+    </cms-page-body>
+</cms-form> 

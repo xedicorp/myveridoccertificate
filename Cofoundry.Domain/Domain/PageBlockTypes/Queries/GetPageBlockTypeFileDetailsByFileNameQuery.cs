@@ -1,0 +1,21 @@
+﻿namespace Cofoundry.Domain;
+
+/// <summary>
+/// Extracts information about a page block type from a view file with
+/// the specified name. If the file is not found then null is returned.
+/// </summary>
+public class GetPageBlockTypeFileDetailsByFileNameQuery : IQuery<PageBlockTypeFileDetails>
+{
+    public GetPageBlockTypeFileDetailsByFileNameQuery() { }
+
+    public GetPageBlockTypeFileDetailsByFileNameQuery(string fileName)
+    {
+        FileName = fileName;
+    }
+
+    /// <summary>
+    /// Full path including filename and file extension of the page
+    /// template view file to parse.
+    /// </summary>
+    public string FileName { get; set; }
+}

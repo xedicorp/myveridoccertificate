@@ -1,0 +1,21 @@
+﻿@model CustomHTMLDisplayModel
+@inject ICofoundryBlockTypeHelper<CustomHTMLDisplayModel> Cofoundry
+
+@{
+    Cofoundry.BlockType.UseDescription("Free Trial Banner with optional citation and title");
+}
+
+@if (Model != null)
+{
+    <section class="@Model.SectionName">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    @Model.SectionHTML
+                </div>
+            </div>
+            
+        </div>
+    </section>
+      
+}

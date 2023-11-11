@@ -1,0 +1,31 @@
+﻿@model IPageViewModel
+@inject ICofoundryTemplateHelper<IPageViewModel> Cofoundry
+
+@Cofoundry.Template.UseDescription("Template for the feature post listing page")
+@section Styles{
+    <link href="~/css/feature.css" rel="stylesheet" asp-append-version="true" />
+}
+<section class="other-page-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="main-heading-style-one">
+                    <h2 class="title">Features and Benefits</h2>
+                    <p class="text-black section-para">See the list below for all the features and benefits. </p>
+                    <p class="section-para"> If you want to know more, please <span><a href="~/contact">contact us.</a></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="feature-benifits">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mx-auto">
+                @await Component.InvokeAsync("FeaturePostFilterByCategories")
+            </div>
+        </div>
+        
+    </div>
+</section>
+

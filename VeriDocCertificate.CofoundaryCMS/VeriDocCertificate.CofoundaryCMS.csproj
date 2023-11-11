@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+	<TargetFramework>net6.0</TargetFramework>
+	<ImplicitUsings>enable</ImplicitUsings>
+	<MvcRazorExcludeViewFilesFromPublish>false</MvcRazorExcludeViewFilesFromPublish>
+    <MvcRazorExcludeRefAssembliesFromPublish>false</MvcRazorExcludeRefAssembliesFromPublish>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Cofoundry\CustomEntities\SeoTools\**" />
+    <Compile Remove="wwwroot\font-awesome-pro-v6-6\**" />
+    <Compile Remove="wwwroot\webfonts\**" />
+    <Content Remove="Cofoundry\CustomEntities\SeoTools\**" />
+    <Content Remove="wwwroot\font-awesome-pro-v6-6\**" />
+    <Content Remove="wwwroot\webfonts\**" />
+    <EmbeddedResource Remove="Cofoundry\CustomEntities\SeoTools\**" />
+    <EmbeddedResource Remove="wwwroot\font-awesome-pro-v6-6\**" />
+    <EmbeddedResource Remove="wwwroot\webfonts\**" />
+    <None Remove="Cofoundry\CustomEntities\SeoTools\**" />
+    <None Remove="wwwroot\font-awesome-pro-v6-6\**" />
+    <None Remove="wwwroot\webfonts\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Shared\_Layout1.cshtml" />
+    <Content Remove="wwwroot\js\all.min.js" />
+    <Content Remove="wwwroot\js\pro.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\js\bootstrap.min.js" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <PackageReference Include="Cofoundry.Plugins.ErrorLogging.Admin" Version="0.11.0" />
+    <PackageReference Include="Cofoundry.Plugins.Imaging.SkiaSharp" Version="0.5.0" />
+    <PackageReference Include="Cofoundry.Plugins.SiteMap" Version="0.11.0" />
+    <PackageReference Include="Cofoundry.Web" Version="0.11.3" />
+    <PackageReference Include="DeviceDetector.NET.NetCore" Version="3.9.2.2" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.0.2" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <ProjectReference Include="..\Cofoundry.Core\Cofoundry.Core.csproj" />
+    <ProjectReference Include="..\Cofoundry.Domain\Cofoundry.Domain.csproj" />
+    <ProjectReference Include="..\Cofoundry.Web.Admin\Cofoundry.Web.Admin.csproj" />
+    <ProjectReference Include="..\Cofoundry.Web\Cofoundry.Web.csproj" />
+  </ItemGroup>
+
+</Project>
