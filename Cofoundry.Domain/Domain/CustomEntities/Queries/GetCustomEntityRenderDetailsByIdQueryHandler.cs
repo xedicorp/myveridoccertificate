@@ -25,13 +25,15 @@ public class GetCustomEntityRenderDetailsByIdQueryHandler
     private readonly IPermissionValidationService _permissionValidationService;
     private readonly IQueryExecutor _queryExecutor;
     private readonly IImageAssetRouteLibrary _imageAssetRouteLibrary;
+    private readonly IDocumentAssetRouteLibrary _documentAssetRouteLibrary;
     public GetCustomEntityRenderDetailsByIdQueryHandler(
         CofoundryDbContext dbContext,
         ICustomEntityDataModelMapper customEntityDataModelMapper,
         IEntityVersionPageBlockMapper entityVersionPageBlockMapper,
         IPermissionValidationService permissionValidationService,
         IQueryExecutor queryExecutor,
-         IImageAssetRouteLibrary imageAssetRouteLibrary
+         IImageAssetRouteLibrary imageAssetRouteLibrary,
+          IDocumentAssetRouteLibrary documentAssetRouteLibrary
         )
     {
         _dbContext = dbContext;
@@ -40,6 +42,7 @@ public class GetCustomEntityRenderDetailsByIdQueryHandler
         _permissionValidationService = permissionValidationService;
         _queryExecutor = queryExecutor;
         _imageAssetRouteLibrary = imageAssetRouteLibrary;
+        _documentAssetRouteLibrary = documentAssetRouteLibrary;
     }
 
     public async Task<CustomEntityRenderDetails> ExecuteAsync(GetCustomEntityRenderDetailsByIdQuery query, IExecutionContext executionContext)
@@ -237,11 +240,15 @@ public class GetCustomEntityRenderDetailsByIdQueryHandler
         };
 
     }
+    //private async Task<string> GetImageUrl(int customEntityId)
+    //{
+    //    return await _imageAssetRouteLibrary.ImageAssetAsync(customEntityId);
+
+
+    //}
     private async Task<string> GetImageUrl(int customEntityId)
     {
-        return await _imageAssetRouteLibrary.ImageAssetAsync(customEntityId);
-
-
+        return await _documentAssetRouteLibrary.DocumentAssetAsync(customEntityId);
     }
     private List<HeaderMenuItem> GetSocialMeidiaLinks(string ids, List<HeaderMenuItem> allLinks)
     {
